@@ -3,7 +3,9 @@
 
 format: jb-book
 root: intro
-chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+parts:
+  - caption: Reinforcement Learning
+    chapters:
+    - file: RL/mab
+    - file: RL/mdp
+    - file: RL/dp
