@@ -6,6 +6,10 @@ root: intro
 parts:
   - caption: Reinforcement Learning
     chapters:
-    - file: RL/mab
-    - file: RL/mdp
-    - file: RL/dp
+    - file: contents/rl/mab
+    - file: contents/rl/mdp
+    - file: contents/rl/dp
+
+  - caption: Large Language Models
+    chapters:
+    - file: contents/llm/langchain
