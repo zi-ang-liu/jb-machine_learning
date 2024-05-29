@@ -62,6 +62,10 @@ To install the LangChain Python library, run the following command in your termi
 pip install langchain
 ```
 
+```bash
+conda install langchain -c conda-forge
+```
+
 To use OpenAI with LangChain, install the OpenAI Python library that integrates with LangChain:
 
 ```bash

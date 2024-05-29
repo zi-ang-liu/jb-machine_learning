@@ -8,38 +8,39 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Markov Decision Process &#8212; Machine Learning</title>
+    <title>Markov Decision Processes &#8212; Machine Learning</title>
   
   
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -57,11 +58,13 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'contents/rl/mdp';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Dynamic Programming" href="dp.html" />
-    <link rel="prev" title="Multi-Armed Bandit" href="mab.html" />
+    <link rel="prev" title="Multi-armed Bandits" href="mab.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -71,27 +74,23 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -113,8 +112,13 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -172,14 +176,14 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../../intro.html">
-                    Welcome to your Jupyter Book
+                    Welcome
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reinforcement Learning</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="mab.html">Multi-Armed Bandit</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Markov Decision Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mab.html">Multi-armed Bandits</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Markov Decision Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dp.html">Dynamic Programming</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Large Language Models</span></p>
@@ -200,7 +204,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -209,7 +213,7 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
@@ -357,7 +361,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -368,11 +374,38 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Markov Decision Process</h1>
+    <h1>Markov Decision Processes</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-environment-interface">Agent-Environment Interface</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formulation-of-mdp">Formulation of MDP</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamics-function">Dynamics function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reward-function">Reward function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#return">Return</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-and-value-function">Policy and Value function</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#policy">Policy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#value-function">Value function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimal-policies-and-optimal-value-functions">Optimal Policies and Optimal Value Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bellman-optimality-equation">Bellman Optimality Equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-programming">Linear Programming</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-implementation">Python Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-programming-for-cliff-walking-problem">Linear Programming for Cliff Walking Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -382,8 +415,303 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="markov-decision-process">
-<h1>Markov Decision Process<a class="headerlink" href="#markov-decision-process" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="markov-decision-processes">
+<h1>Markov Decision Processes<a class="headerlink" href="#markov-decision-processes" title="Link to this heading">#</a></h1>
+<p>The multi-armed bandit problem is a nonassociative problem, that is it does not involve learning to action in more than one situation. Consider the newsvendor problem, the number of newspapers in the morning is always 0, regardless of the previous day’s orders and sales. However, many real-world problems are associative. Therefore, we need to learn to choose different actions in different situations.</p>
+<p>Markov decision processes (MDPs) are associative problems in which the action taken in the current period affects the future states and rewards. MDPs are idealized models of reinforcement learning problems. In MDPs, complete knowledge of the environment is available.</p>
+<section id="agent-environment-interface">
+<h2>Agent-Environment Interface<a class="headerlink" href="#agent-environment-interface" title="Link to this heading">#</a></h2>
+<p>MDPs are used to formulate sequential decision-making problems. The <em>agent</em> interacts with the <em>environment</em> to achieve a goal.</p>
+<ul class="simple">
+<li><p>Agent: The learner and decision-maker</p></li>
+<li><p>Environment: Everything outside the agent</p></li>
+</ul>
+<figure class="align-default" id="agent-env">
+<a class="reference internal image-reference" href="../../_images/agent_env.svg"><img alt="../../_images/agent_env.svg" src="../../_images/agent_env.svg" width="400px" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Agent-Environment Interface</span><a class="headerlink" href="#agent-env" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The agent interacts with the environment in discrete time <span class="math notranslate nohighlight">\(t = 0, 1, 2, \ldots\)</span>. At each time step <span class="math notranslate nohighlight">\(t\)</span>, the agent receives a representation of the environment’s <em>state</em> <span class="math notranslate nohighlight">\(S_t \in \mathcal{S}\)</span>, selects an <em>action</em> <span class="math notranslate nohighlight">\(A_t \in \mathcal{A}(S_t)\)</span>, and receives a <em>reward</em> <span class="math notranslate nohighlight">\(R_{t+1} \in \mathcal{R} \subset \mathbb{R}\)</span> and the next state <span class="math notranslate nohighlight">\(S_{t+1}\)</span>.</p>
+<p>The interaction between the agent and the environment can be summarized as <em>trajectory</em>:</p>
+<div class="math notranslate nohighlight">
+\[S_0, A_0, R_1, S_1, A_1, R_2, S_2, A_2, R_3, \ldots\]</div>
+</section>
+<section id="formulation-of-mdp">
+<h2>Formulation of MDP<a class="headerlink" href="#formulation-of-mdp" title="Link to this heading">#</a></h2>
+<p>A Markov decision process (MDP) is a tuple <span class="math notranslate nohighlight">\((\mathcal{S}, \mathcal{A}, p, r, \gamma)\)</span> where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathcal{S}\)</span>: Set of states</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{A}\)</span>: Set of actions</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(s', r | s, a)\)</span>: Dynamics function <span class="math notranslate nohighlight">\(p: \mathcal{S} \times \mathcal{R} \times \mathcal{S} \times \mathcal{A} \rightarrow [0, 1]\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(r(s, a)\)</span>: Reward function <span class="math notranslate nohighlight">\(r: \mathcal{S} \times \mathcal{A} \rightarrow \mathbb{R}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma\)</span>: Discount factor <span class="math notranslate nohighlight">\(\gamma \in [0, 1]\)</span></p></li>
+</ul>
+<section id="dynamics-function">
+<h3>Dynamics function<a class="headerlink" href="#dynamics-function" title="Link to this heading">#</a></h3>
+<p>The function function <span class="math notranslate nohighlight">\(p\)</span> defines the probability of transitioning to state <span class="math notranslate nohighlight">\(s'\)</span> and receiving reward <span class="math notranslate nohighlight">\(r\)</span> given state <span class="math notranslate nohighlight">\(s\)</span> and action <span class="math notranslate nohighlight">\(a\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+p(s', r | s, a) = \Pr\{S_{t} = s', R_{t} = r | S_{t-1} = s, A_{t-1} = a\}
+\]</div>
+<div class="proof definition admonition" id="markov-property">
+<p class="admonition-title"><span class="caption-number">Definition 1 </span> (Markov Property)</p>
+<section class="definition-content" id="proof-content">
+<p>The state has the <em>Markov property</em> if the state includes all relevant information from the interaction history that may affect the future.</p>
+<p>Note that <span class="math notranslate nohighlight">\(p\)</span> captures all the environment’s dynamics completely. The possibility of each possible <span class="math notranslate nohighlight">\(S_t\)</span> and <span class="math notranslate nohighlight">\(R_t\)</span> depends only on the preceding state <span class="math notranslate nohighlight">\(S_{t-1}\)</span> and action <span class="math notranslate nohighlight">\(A_{t-1}\)</span>.</p>
+</section>
+</div></section>
+<section id="reward-function">
+<h3>Reward function<a class="headerlink" href="#reward-function" title="Link to this heading">#</a></h3>
+<p>The reward function <span class="math notranslate nohighlight">\(r(s, a)\)</span> defines the expected rewards given state <span class="math notranslate nohighlight">\(s\)</span> and action <span class="math notranslate nohighlight">\(a\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned} r(s, a) &amp;= \mathbb{E}[R_{t} | S_{t} = s, A_{t} = a] \\ &amp;= \sum_{r \in \mathcal{R}} r \sum_{s' \in \mathcal{S}} p(s', r | s, a) \end{aligned}
+\end{split}\]</div>
+</section>
+<section id="return">
+<h3>Return<a class="headerlink" href="#return" title="Link to this heading">#</a></h3>
+<p>The objective of the agent is to maximize the expected value of the cumulative sum of a received scalar signal (reward).</p>
+<p>To formalize the objective, we define the <em>return</em> <span class="math notranslate nohighlight">\(G_t\)</span> as certain function of the rewards received after time <span class="math notranslate nohighlight">\(t\)</span>. The simplest form of return is the sum of rewards:</p>
+<div class="math notranslate nohighlight">
+\[
+G_t = R_{t+1} + R_{t+2} + R_{t+3} + \ldots + R_T
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(T\)</span> is the final time step. Note that this definition of return is suitable for tasks that will eventually end. In such cases, each <em>episode</em> ends in a <em>terminal state</em>.</p>
+<p>There are also MDPs that do not have terminal states. We call such MDPs <em>continuing tasks</em>. In continuing tasks, the return that we defined above could be infinite. To handle such cases, we introduce the concept of <em>discounted return</em>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned} G_t &amp;= R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \ldots \\ &amp;= \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \end{aligned}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\gamma\)</span> is the <em>discount factor</em> that satisfies <span class="math notranslate nohighlight">\(0 \leq \gamma \leq 1\)</span>.</p>
+<p>The discount return can be represented as the following recursive form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned} G_t &amp;= R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \ldots \\ &amp;= R_{t+1} + \gamma (R_{t+2} + \gamma R_{t+3} + \ldots) \\ &amp;= R_{t+1} + \gamma G_{t+1} \end{aligned}
+\end{split}\]</div>
+</section>
+</section>
+<section id="policy-and-value-function">
+<h2>Policy and Value function<a class="headerlink" href="#policy-and-value-function" title="Link to this heading">#</a></h2>
+<section id="policy">
+<h3>Policy<a class="headerlink" href="#policy" title="Link to this heading">#</a></h3>
+<p>The agent interacts with the environment by selecting actions. To describe the agent’s behavior, we introduce the concept of <em>policy</em>. A policy is a mapping from states to probabilities of selecting each possible action. A policy is denoted by <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+\pi(a | s) = \Pr\{A_t = a | S_t = s\}
+\]</div>
+</section>
+<section id="value-function">
+<h3>Value function<a class="headerlink" href="#value-function" title="Link to this heading">#</a></h3>
+<p>The value function is the expected return when starting in state <span class="math notranslate nohighlight">\(s\)</span> and following policy <span class="math notranslate nohighlight">\(\pi\)</span> thereafter. The <em>state-value function for policy</em> <span class="math notranslate nohighlight">\(\pi\)</span> is denoted by <span class="math notranslate nohighlight">\(v_{\pi}(s)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+v_{\pi}(s) = \mathbb{E}_{\pi}[G_t | S_t = s]
+\]</div>
+<p>Similarly, we use a action-value function to represent the expected return when starting in state <span class="math notranslate nohighlight">\(s\)</span>, taking action <span class="math notranslate nohighlight">\(a\)</span>, and following policy <span class="math notranslate nohighlight">\(\pi\)</span> thereafter. The <em>action-value function for policy</em> <span class="math notranslate nohighlight">\(\pi\)</span> is denoted by <span class="math notranslate nohighlight">\(q_{\pi}(s, a)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+q_{\pi}(s, a) = \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a]
+\]</div>
+<p>An important property of value functions is that they satisfy recursive relationships. The value of a state can be expressed in terms of the value of its possible successor states:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned} v_{\pi}(s) &amp;= \mathbb{E}_{\pi}[G_t | S_t = s] \\ &amp;= \mathbb{E}_{\pi}[{R_{t+1} + \gamma G_{t+1} | S_t = s}] \\ &amp;= \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma \mathbb{E}_{\pi}[G_{t+1} | S_{t+1} = s']] \\ &amp;= \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')] \end{aligned}
+\end{split}\]</div>
+<div class="proof theorem admonition" id="bellman-equation">
+<p class="admonition-title"><span class="caption-number">Theorem 1 </span> (Bellman Equation)</p>
+<section class="theorem-content" id="proof-content">
+<p>The last equation is known as the <em>Bellman equation</em>.</p>
+<div class="math notranslate nohighlight">
+\[v_{\pi}(s) = \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')]\]</div>
+<p>It is write in recursive form that indicates the relationship between <span class="math notranslate nohighlight">\(v_{\pi}(s)\)</span> and all the possible successor states’ values <span class="math notranslate nohighlight">\(v_{\pi}(s')\)</span>.</p>
+</section>
+</div></section>
+</section>
+<section id="optimal-policies-and-optimal-value-functions">
+<h2>Optimal Policies and Optimal Value Functions<a class="headerlink" href="#optimal-policies-and-optimal-value-functions" title="Link to this heading">#</a></h2>
+<p>For all <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span>, if <span class="math notranslate nohighlight">\(v_{\pi}(s) \geq v_{\pi'}(s)\)</span>, then <span class="math notranslate nohighlight">\(\pi\)</span> is better than or equal to <span class="math notranslate nohighlight">\(\pi'\)</span>, denoted by <span class="math notranslate nohighlight">\(\pi \geq \pi'\)</span>. There is always at least one policy that is better than or equal to all other policies. This policy is called the <em>optimal policy</em> and denoted by <span class="math notranslate nohighlight">\(\pi_*\)</span>.</p>
+<p>Using the concept of optimal policy, we can define the <em>optimal state-value function</em> and <em>optimal action-value function</em> as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+v_*(s) = \max_{\pi} v_{\pi}(s), \quad \forall s \in \mathcal{S}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+q_*(s, a) = \max_{\pi} q_{\pi}(s, a), \quad \forall s \in \mathcal{S}, a \in \mathcal{A}
+\]</div>
+</section>
+<section id="bellman-optimality-equation">
+<h2>Bellman Optimality Equation<a class="headerlink" href="#bellman-optimality-equation" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned} v_*(s) &amp;= \max_{a} q_*(s, a) \\ &amp;= \max_{a} \mathbb{E}_{\pi_*}[G_t | S_t = s, A_t = a] \\ &amp;= \max_{a} \mathbb{E}_{\pi_*}[R_{t+1} + \gamma G_{t+1} | S_t = s, A_t = a] \\ &amp;= \max_{a} \mathbb{E}[R_{t+1} + \gamma v_*({S_{t+1}}) | S_t = s, A_t = a] \\ &amp;= \max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_*(s')] \end{aligned}
+\end{split}\]</div>
+<p>The last equation is known as the <em>Bellman optimality equation</em>.</p>
+<div class="proof theorem admonition" id="bellman-optimality-equation">
+<p class="admonition-title"><span class="caption-number">Theorem 2 </span> (Bellman optimality equation)</p>
+<section class="theorem-content" id="proof-content">
+<p>The last equation is known as the <em>Bellman optimality equation</em> for the state-value function.</p>
+<div class="math notranslate nohighlight">
+\[v_*(s) = \max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_*(s')]\]</div>
+<p>The Bellman optimality equation is a system of nonlinear equations. The solution to the system of equations is the optimal value function. For a finite MDP that has <span class="math notranslate nohighlight">\(n\)</span> states, the system of equations has <span class="math notranslate nohighlight">\(n\)</span> equations and <span class="math notranslate nohighlight">\(n\)</span> unknowns.</p>
+<p>In addition, the Bellman optimality equation for the action-value function is:</p>
+<div class="math notranslate nohighlight">
+\[q_*(s, a) = \sum_{s', r} p(s', r | s, a) [r + \gamma \max_{a'} q_*(s', a')]\]</div>
+</section>
+</div><p>Note that if we know the optimal value function <span class="math notranslate nohighlight">\(v_*(s)\)</span>, for all <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span>, we can easily find the optimal policy <span class="math notranslate nohighlight">\(\pi_*(s)\)</span> by selecting the action that maximizes the right-hand side of the Bellman optimality equation.</p>
+<div class="math notranslate nohighlight">
+\[
+\pi_*(s) = \arg\max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_*(s')]
+\]</div>
+</section>
+<section id="linear-programming">
+<h2>Linear Programming<a class="headerlink" href="#linear-programming" title="Link to this heading">#</a></h2>
+<p>The Bellman optimality equation can be solved using linear programming. This is a less frequently used method for solving MDP. The idea is that</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(v(s) \geq r(s, a) + \gamma \sum_{s'} p(s' | s, a) v(s')\)</span> for all <span class="math notranslate nohighlight">\(s \in S\)</span> and <span class="math notranslate nohighlight">\(a \in A\)</span>, then <span class="math notranslate nohighlight">\(v(s)\)</span> is an upper bound on <span class="math notranslate nohighlight">\(v_*(s)\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(v_*(s)\)</span> must be the smallest such solution</p></li>
+</ul>
+<p>The linear programming formulation of the Bellman optimality equation is as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned} \textnormal{minimize } &amp; \sum_{s \in S} \alpha_s v(s) \\ \textnormal{s.t. } &amp; v(s) \geq r(s, a) + \gamma \sum_{s'} p(s' | s, a) v(s'), \forall s \in S, \forall a \in A \\ &amp; \textnormal{The constants $\alpha_s$ are arbitrary positive numbers.} \end{aligned}
+\end{split}\]</div>
+<p>Notes:</p>
+<ul class="simple">
+<li><p>Linear programming methods can also be used to solve MDPs</p></li>
+<li><p>Linear programming methods become impractical at a much smaller number of states than do DP methods (by a factor of about 100).</p></li>
+</ul>
+</section>
+<section id="python-implementation">
+<h2>Python Implementation<a class="headerlink" href="#python-implementation" title="Link to this heading">#</a></h2>
+<section id="linear-programming-for-cliff-walking-problem">
+<h3>Linear Programming for Cliff Walking Problem<a class="headerlink" href="#linear-programming-for-cliff-walking-problem" title="Link to this heading">#</a></h3>
+<p>The goal is to find the optimal policy for moving an agent from a starting position to a goal position as quickly as possible while avoiding falling off a cliff.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># r: reward matrix, n_state * n_action</span>
+<span class="c1"># p: transition probability matrix, n_state * n_action * n_state</span>
+<span class="c1"># gamma: discount factor</span>
+
+<span class="kn">from</span> <span class="nn">gurobipy</span> <span class="kn">import</span> <span class="n">GRB</span><span class="p">,</span> <span class="n">Model</span><span class="p">,</span> <span class="n">quicksum</span>
+
+<span class="k">def</span> <span class="nf">lp_solver</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">gamma</span><span class="p">):</span>
+
+    <span class="n">action_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">state_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">n_state</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">state_set</span><span class="p">)</span>
+
+    <span class="c1"># create a model instance</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">()</span>
+
+    <span class="c1"># create variables</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_state</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">addVar</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;v_</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">lb</span><span class="o">=-</span><span class="n">GRB</span><span class="o">.</span><span class="n">INFINITY</span><span class="p">)</span>
+    
+    <span class="c1"># update the model</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+    <span class="c1"># create constraints</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">state_set</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">action_set</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">addConstr</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">getVarByName</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;v_</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">quicksum</span><span class="p">(</span>
+                <span class="n">gamma</span> <span class="o">*</span> <span class="n">p</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">next_state</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">getVarByName</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;v_</span><span class="si">{</span><span class="n">next_state</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">next_state</span> <span class="ow">in</span> <span class="n">state_set</span> <span class="p">)</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">])</span>
+
+    <span class="c1"># set objective</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">setObjective</span><span class="p">(</span><span class="n">quicksum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">getVarByName</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s1">&#39;v_</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">state_set</span> <span class="p">),</span> <span class="n">GRB</span><span class="o">.</span><span class="n">MINIMIZE</span><span class="p">)</span>
+
+    <span class="c1"># optimize</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gurobipy</span> <span class="kn">import</span> <span class="n">GRB</span><span class="p">,</span> <span class="n">Model</span><span class="p">,</span> <span class="n">quicksum</span>
+<span class="kn">import</span> <span class="nn">gymnasium</span> <span class="k">as</span> <span class="nn">gym</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">lp_solver</span> <span class="kn">import</span> <span class="n">lp_solver</span>
+
+<span class="c1"># create an environment</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s1">&#39;CliffWalking-v0&#39;</span><span class="p">)</span>
+<span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">unwrapped</span><span class="o">.</span><span class="n">nS</span>
+<span class="n">n_action</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">unwrapped</span><span class="o">.</span><span class="n">nA</span>
+<span class="n">state_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_state</span><span class="p">))</span>
+<span class="n">action_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_action</span><span class="p">))</span>
+<span class="c1"># The player cannot be at the cliff, nor at the goal </span>
+<span class="n">terminal_state_set</span> <span class="o">=</span> <span class="p">[</span><span class="mi">47</span><span class="p">]</span> 
+<span class="n">unreachable_state_set</span> <span class="o">=</span> <span class="p">[</span><span class="mi">37</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">46</span><span class="p">]</span>
+<span class="c1"># the reachable state set is the set of all states except the cliff and the goal.</span>
+<span class="c1"># only the states in the reachable state set are considered in the optimization problem</span>
+<span class="n">reachable_state_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">state_set</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">terminal_state_set</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">unreachable_state_set</span><span class="p">))</span>
+
+<span class="c1"># set parameters</span>
+<span class="n">gamma</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># initialize reward and transition probability</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_state</span><span class="p">,</span> <span class="n">n_action</span><span class="p">))</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_state</span><span class="p">,</span> <span class="n">n_action</span><span class="p">,</span> <span class="n">n_state</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">reachable_state_set</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">action_set</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">prob</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">terminated</span> <span class="ow">in</span> <span class="n">env</span><span class="o">.</span><span class="n">unwrapped</span><span class="o">.</span><span class="n">P</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">action</span><span class="p">]:</span>
+            <span class="n">r</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="n">prob</span> <span class="o">*</span> <span class="n">reward</span>
+            <span class="n">p</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">next_state</span><span class="p">]</span> <span class="o">+=</span> <span class="n">prob</span>
+
+<span class="c1"># solve the mdp problem using linear programming</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">lp_solver</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+
+<span class="c1"># state value</span>
+<span class="n">value_function</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">reachable_state_set</span><span class="p">:</span>
+    <span class="n">value_function</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">getVarByName</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;v_</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">x</span>
+
+<span class="n">policy</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">terminal_state_set</span><span class="p">:</span>
+    <span class="n">value_function</span><span class="p">[</span><span class="mi">47</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    
+<span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">reachable_state_set</span><span class="p">:</span>
+    <span class="n">q_max_value</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">action_set</span><span class="p">:</span>
+        <span class="n">q_value_temp</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">reward</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">value_function</span><span class="p">[</span><span class="n">next_state</span><span class="p">])</span>
+                            <span class="k">for</span> <span class="n">prob</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">terminated</span> <span class="ow">in</span> <span class="n">env</span><span class="o">.</span><span class="n">unwrapped</span><span class="o">.</span><span class="n">P</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">action</span><span class="p">]])</span>
+        <span class="k">if</span> <span class="n">q_value_temp</span> <span class="o">&gt;</span> <span class="n">q_max_value</span><span class="p">:</span>
+            <span class="n">q_max_value</span> <span class="o">=</span> <span class="n">q_value_temp</span>
+            <span class="n">policy</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">action</span>
+        
+<span class="c1"># print value function 4*12, 1 digital after decimal point</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;value function = &#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">+</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">value_function</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.1f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value_function</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">+</span> <span class="n">j</span><span class="p">]),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;optimal policy = &#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">+</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">policy</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">policy</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">+</span> <span class="n">j</span><span class="p">],</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;model.lp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Markov decision processes (MDPs) are used to formulate sequential decision-making problems.</p></li>
+<li><p>MDPs are a tuple <span class="math notranslate nohighlight">\((\mathcal{S}, \mathcal{A}, p, r, \gamma)\)</span>.</p></li>
+<li><p>The Bellman optimality equation is a system of nonlinear equations that can be solved to find the optimal value function.</p></li>
+<li><p>Linear programming can be used to find the optimal value function.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -413,7 +741,7 @@ document.write(`
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -422,7 +750,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Multi-Armed Bandit</p>
+        <p class="prev-next-title">Multi-armed Bandits</p>
       </div>
     </a>
     <a class="right-next"
@@ -441,7 +769,39 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-environment-interface">Agent-Environment Interface</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formulation-of-mdp">Formulation of MDP</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamics-function">Dynamics function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reward-function">Reward function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#return">Return</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-and-value-function">Policy and Value function</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#policy">Policy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#value-function">Value function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimal-policies-and-optimal-value-functions">Optimal Policies and Optimal Value Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bellman-optimality-equation">Bellman Optimality Equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-programming">Linear Programming</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-implementation">Python Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-programming-for-cliff-walking-problem">Linear Programming for Cliff Walking Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
@@ -486,8 +846,8 @@ By Ziang Liu
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
   </footer>

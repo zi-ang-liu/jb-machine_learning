@@ -8,38 +8,39 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Multi-Armed Bandit &#8212; Machine Learning</title>
+    <title>Multi-armed Bandits &#8212; Machine Learning</title>
   
   
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -57,11 +58,13 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'contents/rl/mab';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Markov Decision Process" href="mdp.html" />
-    <link rel="prev" title="Welcome to your Jupyter Book" href="../../intro.html" />
+    <link rel="next" title="Markov Decision Processes" href="mdp.html" />
+    <link rel="prev" title="Welcome" href="../../intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -71,27 +74,23 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -113,8 +112,13 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -172,14 +176,14 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../../intro.html">
-                    Welcome to your Jupyter Book
+                    Welcome
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reinforcement Learning</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Multi-Armed Bandit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mdp.html">Markov Decision Process</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Multi-armed Bandits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdp.html">Markov Decision Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dp.html">Dynamic Programming</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Large Language Models</span></p>
@@ -200,7 +204,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -209,7 +213,7 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
@@ -357,7 +361,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -368,11 +374,30 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Multi-Armed Bandit</h1>
+    <h1>Multi-armed Bandits</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-reward-and-estimated-reward">Expected Reward and Estimated reward</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incremental-implementation">Incremental Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploration-and-exploitation">Exploration and Exploitation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-bandit-algorithm">A Simple Bandit Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-implementation">Python Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-armed-bandit-problem">Multi-armed Bandit Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-newsvendor-problem">The Newsvendor Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -382,8 +407,337 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="multi-armed-bandit">
-<h1>Multi-Armed Bandit<a class="headerlink" href="#multi-armed-bandit" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="multi-armed-bandits">
+<h1>Multi-armed Bandits<a class="headerlink" href="#multi-armed-bandits" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>The multi-armed bandit problem is a classic problem in which a decision-maker chooses between <span class="math notranslate nohighlight">\(k\)</span> different actions, each of which has an unknown reward distribution. After each action, the decision-maker receives a reward from a stationary probability distribution. The objective is to maximize the total reward over some time period.</p>
+<figure><img src="../.gitbook/assets/bandits_violin_plot.svg" alt=""><figcaption></figcaption></figure>
+<figure class="align-default" id="bandits-violin-plot">
+<a class="reference internal image-reference" href="../../_images/bandits_violin_plot.svg"><img alt="../../_images/bandits_violin_plot.svg" src="../../_images/bandits_violin_plot.svg" width="400px" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Agent-Environment Interface</span><a class="headerlink" href="#bandits-violin-plot" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Set the random seed for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Set the figure size</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Generate the data and plot the violin plot</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Set the labels and title with increased font sizes</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Bandit&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Reward&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Violin plot for 10-armed bandits&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;major&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+
+<span class="c1"># Save the figure</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;bandits_violin_plot.svg&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A_t\)</span>: Action at time <span class="math notranslate nohighlight">\(t\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(R_t\)</span>: Reward at time <span class="math notranslate nohighlight">\(t\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(q_*(a)\)</span>: Expected reward for taking action <span class="math notranslate nohighlight">\(a\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(Q_t(a)\)</span>: Estimated value of action <span class="math notranslate nohighlight">\(a\)</span> at time <span class="math notranslate nohighlight">\(t\)</span></p></li>
+</ul>
+</section>
+<section id="expected-reward-and-estimated-reward">
+<h2>Expected Reward and Estimated reward<a class="headerlink" href="#expected-reward-and-estimated-reward" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(q_*(a)\)</span> be the expected reward for taking action <span class="math notranslate nohighlight">\(a\)</span>, i.e., <span class="math notranslate nohighlight">\(q_*(a) = \mathbb{E} \left[ R_t | A_t = a \right]\)</span>. Note that if <span class="math notranslate nohighlight">\(q_*(a)\)</span> is known, the optimal action is always to choose <span class="math notranslate nohighlight">\(a = \arg \max_a q_*(a)\)</span>. However, since the reward distribution is unknown, we cannot directly compute <span class="math notranslate nohighlight">\(q_*(a)\)</span>. Thus, we need to find a way to estimate <span class="math notranslate nohighlight">\(q_*(a)\)</span>.</p>
+<p>Let <span class="math notranslate nohighlight">\(Q_t(a)\)</span> be the estimated value of action <span class="math notranslate nohighlight">\(a\)</span> at time <span class="math notranslate nohighlight">\(t\)</span>. A simple idea is to use the sample average of rewards obtained from action <span class="math notranslate nohighlight">\(a\)</span> up to time <span class="math notranslate nohighlight">\(t-1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+Q_t(a) = \frac{\sum_{i=1}^{t-1} R_i \mathbb{I} \left\{ A_i = a \right\}}{\sum_{i=1}^{t-1} \mathbb{I} \left\{ A_i = a \right\}}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbb{I} \left\{ A_i = a \right\}\)</span> is an indicator function that is equal to 1 if <span class="math notranslate nohighlight">\(A_i = a\)</span> and 0 otherwise.</p>
+<p>As long as we obtain sufficient samples, the sample average will converge to the true expected reward. However, this method requires storing all the rewards and actions, which will be increasingly expensive as the number of actions and time steps increases.</p>
+</section>
+<section id="incremental-implementation">
+<h2>Incremental Implementation<a class="headerlink" href="#incremental-implementation" title="Link to this heading">#</a></h2>
+<p>To avoid storing all the rewards and actions, we can use an incremental implementation of the sample average. The incremental implementation updates the estimated value of action <span class="math notranslate nohighlight">\(a\)</span> at time <span class="math notranslate nohighlight">\(t\)</span> using the following formula:</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{n+1} = Q_n + \frac{1}{n} \left( R_n - Q_n \right)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the number of times action <span class="math notranslate nohighlight">\(a\)</span> has been taken, <span class="math notranslate nohighlight">\(R_n\)</span> is the reward obtained after taking action <span class="math notranslate nohighlight">\(a\)</span> for the <span class="math notranslate nohighlight">\(n\)</span>-th time, and <span class="math notranslate nohighlight">\(Q_n\)</span> is the estimated value of action <span class="math notranslate nohighlight">\(a\)</span> after taking action <span class="math notranslate nohighlight">\(a\)</span> for the <span class="math notranslate nohighlight">\(n\)</span>-th time.</p>
+<p>It is easy to prove that the incremental implementation is equivalent to the sample average implementation. The proof is as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*} Q_{n+1} &amp; = \frac{R_1 + R_2 + \dots + R_{n}}{n} \\ &amp; = \frac{1}{n} \sum_{i=1}^{n} R_i \\ &amp; = \frac{1}{n} \left( R_n + \sum_{i=1}^{n-1} R_i \right) \\ &amp; = \frac{1}{n} \left( R_n + (n-1) \frac{R_1 + R_2 + \dots + R_{n-1}}{n-1} \right) \\ &amp; = \frac{1}{n} \left( R_n + (n-1) Q_n \right) \\ &amp; = Q_n + \frac{1}{n} \left( R_n - Q_n \right) \\ \end{align*}
+\end{split}\]</div>
+<p>We can see that the incremental implementation is only required to store the estimated value <span class="math notranslate nohighlight">\(Q_n\)</span> and the number of times <span class="math notranslate nohighlight">\(n\)</span> for each action.</p>
+<p>Now, we can use the incremental implementation to estimate the expected reward for each action. The next question is how to choose the action in each period.</p>
+</section>
+<section id="exploration-and-exploitation">
+<h2>Exploration and Exploitation<a class="headerlink" href="#exploration-and-exploitation" title="Link to this heading">#</a></h2>
+<p>Remember that the objective of the multi-armed bandit problem is to maximize the total reward over some time period. To achieve this objective, we need to (1) explore the environment to estimate <span class="math notranslate nohighlight">\(q_*(a)\)</span> and (2) exploit the estimated values to maximize the total reward.</p>
+<p>Should we equally explore all actions as much as possible to estimate <span class="math notranslate nohighlight">\(q_*(a)\)</span> accurately, or should we exploit the action with the highest estimated value to maximize the total reward? This is known as the exploration-exploitation dilemma.</p>
+<p>The <span class="math notranslate nohighlight">\(\epsilon\)</span>-greedy policy is a simple policy that balances exploration and exploitation. In this policy, <span class="math notranslate nohighlight">\(\epsilon\)</span> is the probability that within the range <span class="math notranslate nohighlight">\([0, 1]\)</span>. With probability <span class="math notranslate nohighlight">\(\epsilon\)</span>, the agent chooses a random action (explore), and with probability <span class="math notranslate nohighlight">\(1-\epsilon\)</span>, the agent chooses the action with the highest estimated value (exploit). Normally, <span class="math notranslate nohighlight">\(\epsilon\)</span> is set to a small value, such as 0.1 or 0.01.</p>
+</section>
+<section id="a-simple-bandit-algorithm">
+<h2>A Simple Bandit Algorithm<a class="headerlink" href="#a-simple-bandit-algorithm" title="Link to this heading">#</a></h2>
+<p>We have discussed the methods to estimate the expected reward and to select the action. Now, we can combine these methods to create a simple bandit algorithm. The pseudocode is as follows:</p>
+<div class="proof algorithm admonition" id="simple_bandit_algorithm">
+<p class="admonition-title"><span class="caption-number">Algorithm 1 </span> (Simple Bandit Algorithm)</p>
+<section class="algorithm-content" id="proof-content">
+<ol class="arabic simple">
+<li><p>Initialize, for <span class="math notranslate nohighlight">\(a = 1, \dots, k\)</span>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(Q(a) \leftarrow 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(N(a) \leftarrow 0\)</span></p></li>
+</ol>
+</li>
+<li><p>For <span class="math notranslate nohighlight">\(t = 1, 2, \dots\)</span>:</p>
+<ol class="arabic simple">
+<li><p>Choose <span class="math notranslate nohighlight">\(A_t\)</span> using <span class="math notranslate nohighlight">\(\epsilon\)</span>-greedy policy based on <span class="math notranslate nohighlight">\(Q_t\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(R_t\)</span> <span class="math notranslate nohighlight">\(\leftarrow\)</span> bandit(<span class="math notranslate nohighlight">\(A_t\)</span>)</p></li>
+<li><p><span class="math notranslate nohighlight">\(N(A_t) \leftarrow N(A_t) + 1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(Q(A_t) \leftarrow Q(A_t) + \frac{1}{N(A_t)} \left( R_t - Q(A_t) \right)\)</span></p></li>
+</ol>
+</li>
+</ol>
+</section>
+</div><p>In the beginning, we initialize the estimated value <span class="math notranslate nohighlight">\(Q_t(a)\)</span> and the number of times <span class="math notranslate nohighlight">\(N_t(a)\)</span> for each action to 0. In each period <span class="math notranslate nohighlight">\(t\)</span>, we choose the action <span class="math notranslate nohighlight">\(A_t\)</span> using the <span class="math notranslate nohighlight">\(\epsilon\)</span>-greedy policy. After taking action <span class="math notranslate nohighlight">\(A_t\)</span>, we receive the reward <span class="math notranslate nohighlight">\(R_t\)</span> and update the number of times <span class="math notranslate nohighlight">\(N_t(A_t)\)</span> . Then, we update the estimated value <span class="math notranslate nohighlight">\(Q_t(A_t)\)</span> using the incremental implementation.</p>
+</section>
+<section id="python-implementation">
+<h2>Python Implementation<a class="headerlink" href="#python-implementation" title="Link to this heading">#</a></h2>
+<section id="multi-armed-bandit-problem">
+<h3>Multi-armed Bandit Problem<a class="headerlink" href="#multi-armed-bandit-problem" title="Link to this heading">#</a></h3>
+<figure class="align-default" id="simple-bandit">
+<a class="reference internal image-reference" href="../../_images/simple_bandit.svg"><img alt="../../_images/simple_bandit.svg" src="../../_images/simple_bandit.svg" width="400px" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Simple Bandit Algorithm</span><a class="headerlink" href="#simple-bandit" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">class</span> <span class="nc">bandit_algorithm</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bandit</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">steps</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bandit</span> <span class="o">=</span> <span class="n">bandit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">epsilon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="o">=</span> <span class="n">steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">bandit</span><span class="o">.</span><span class="n">k</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">learn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">):</span>
+            <span class="c1"># epsilon greedy</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span><span class="p">:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># choose action with maximum Q, if multiple, choose randomly</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="c1"># get reward</span>
+            <span class="n">reward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bandit</span><span class="o">.</span><span class="n">bandit</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+            <span class="c1"># update Q</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">reward</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">[</span><span class="n">action</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">[</span><span class="n">action</span><span class="p">]</span>
+            <span class="c1"># update reward</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reward</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span>
+
+<span class="k">class</span> <span class="nc">bandit</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">bandit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">[</span><span class="n">action</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">[</span><span class="n">action</span><span class="p">])</span>
+    
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    
+    <span class="c1"># set random seed for reproducibility</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">epsilon_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]</span>
+
+    <span class="c1"># mean reward</span>
+    <span class="n">number_of_runs</span> <span class="o">=</span> <span class="mi">2000</span>
+    <span class="n">rewards</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">epsilon_list</span><span class="p">),</span> <span class="n">number_of_runs</span><span class="p">,</span> <span class="n">steps</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">epsilon</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epsilon_list</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_runs</span><span class="p">):</span>
+            <span class="n">bandit_instance</span> <span class="o">=</span> <span class="n">bandit</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="n">simple_bandit</span> <span class="o">=</span> <span class="n">bandit_algorithm</span><span class="p">(</span><span class="n">bandit_instance</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">steps</span><span class="p">)</span>
+            <span class="n">simple_bandit</span><span class="o">.</span><span class="n">learn</span><span class="p">()</span>
+            <span class="n">rewards</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">simple_bandit</span><span class="o">.</span><span class="n">reward</span>
+
+    <span class="c1"># plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epsilon_list</span><span class="p">)):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rewards</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;epsilon = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epsilon_list</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+        <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Steps&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Average Reward&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Average Reward vs Steps&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;major&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;simple_bandit.svg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="the-newsvendor-problem">
+<h3>The Newsvendor Problem<a class="headerlink" href="#the-newsvendor-problem" title="Link to this heading">#</a></h3>
+<p>The newsvendor problem is a classic inventory management problem in which a decision-maker must decide how many copies of a newspaper to order each morning. The demand for the newspaper follows a probability distribution. The overage cost occurs when the demand is less than the order quantity, and the underage cost occurs when the demand is greater than the order quantity.</p>
+<p>Note that the classic newsvendor problem assumes that the demand distribution is known and by minimizing the expected cost, we can find the optimal order quantity.</p>
+<p>In here, we assume that the demand distribution is unknown, and we can only observe the demand after ordering the newspaper. The objective is to minimize the cost over some time period. By considering the discrete order quantity as actions, we can model the newsvendor problem as a multi-armed bandit problem.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(D_t\)</span></p></td>
+<td><p>Demand at time <span class="math notranslate nohighlight">\(t\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(h\)</span></p></td>
+<td><p>Holding cost (overage cost)</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(p\)</span></p></td>
+<td><p>Stockout cost (underage cost)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In the following code, we solve an instance of the newsvendor problem using the simple bandit algorithm. In this example, <span class="math notranslate nohighlight">\(h = 0.18\)</span>, <span class="math notranslate nohighlight">\(p = 0.7\)</span>, and <span class="math notranslate nohighlight">\(D \sim \mathcal{N}(5, 1)\)</span>, where <span class="math notranslate nohighlight">\(D\)</span> is discretized to the nearest integer.</p>
+<p>We set the planning horizon <code class="docutils literal notranslate"><span class="pre">steps</span> <span class="pre">=</span> <span class="pre">2000</span></code>. We use the <span class="math notranslate nohighlight">\(\epsilon\)</span>-greedy policy with <span class="math notranslate nohighlight">\(\epsilon = 0.1\)</span>. We run the algorithm 10 times by setting <code class="docutils literal notranslate"><span class="pre">number_of_runs</span> <span class="pre">=</span> <span class="pre">10</span></code> and store the results in the <code class="docutils literal notranslate"><span class="pre">rewards</span></code> array. Finally, we plot the average reward over time.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="k">class</span> <span class="nc">newsvendor_as_bandits</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">h</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span>
+
+    <span class="k">def</span> <span class="nf">bandit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+        <span class="c1"># sample demand to integer</span>
+        <span class="n">demand</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">))</span>
+        <span class="c1"># calculate cost</span>
+        <span class="n">cost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="n">action</span> <span class="o">-</span> <span class="n">demand</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="n">demand</span> <span class="o">-</span> <span class="n">action</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">cost</span>
+
+
+<span class="k">class</span> <span class="nc">bandit_algorithm</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bandit</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">steps</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bandit</span> <span class="o">=</span> <span class="n">bandit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">epsilon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="o">=</span> <span class="n">steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">bandit</span><span class="o">.</span><span class="n">k</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">learn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">):</span>
+            <span class="c1"># epsilon greedy</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span><span class="p">:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># choose action with maximum Q, if multiple, choose randomly</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="c1"># get reward</span>
+            <span class="n">reward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bandit</span><span class="o">.</span><span class="n">bandit</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+            <span class="c1"># update Q</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">reward</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">[</span><span class="n">action</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">[</span><span class="n">action</span><span class="p">]</span>
+            <span class="c1"># update reward</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reward</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="c1"># set random seed for reproducibility</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># parameters</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="mf">0.18</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="mf">0.7</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">optimal</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">epsilon_list</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">]</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="mi">2000</span>
+
+    <span class="c1"># mean reward</span>
+    <span class="n">number_of_runs</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">rewards</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">epsilon_list</span><span class="p">),</span> <span class="n">number_of_runs</span><span class="p">,</span> <span class="n">steps</span><span class="p">))</span>
+
+    <span class="c1"># newsvendor problem</span>
+    <span class="n">newsvendor</span> <span class="o">=</span> <span class="n">newsvendor_as_bandits</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epsilon_list</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_runs</span><span class="p">):</span>
+            <span class="c1"># initialize bandit algorithm</span>
+            <span class="n">bandit</span> <span class="o">=</span> <span class="n">bandit_algorithm</span><span class="p">(</span><span class="n">newsvendor</span><span class="p">,</span> <span class="n">epsilon_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">steps</span><span class="p">)</span>
+            <span class="c1"># learn</span>
+            <span class="n">bandit</span><span class="o">.</span><span class="n">learn</span><span class="p">()</span>
+            <span class="c1"># store results</span>
+            <span class="n">rewards</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">bandit</span><span class="o">.</span><span class="n">reward</span>
+            <span class="c1"># print optimal action and Q value</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;optimal action = </span><span class="si">{}</span><span class="s2">, Q = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">bandit</span><span class="o">.</span><span class="n">Q</span><span class="p">),</span> <span class="n">bandit</span><span class="o">.</span><span class="n">Q</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">bandit</span><span class="o">.</span><span class="n">Q</span><span class="p">)]</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="c1"># plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epsilon_list</span><span class="p">)):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rewards</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;epsilon = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epsilon_list</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+        <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Steps&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Average Reward&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Average Reward vs Steps&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;major&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;newsvendor_average_reward.svg&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-default" id="newsvendor-average-reward">
+<a class="reference internal image-reference" href="../../_images/newsvendor_average_reward.svg"><img alt="../../_images/newsvendor_average_reward.svg" src="../../_images/newsvendor_average_reward.svg" width="400px" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Average Reward vs Steps</span><a class="headerlink" href="#newsvendor-average-reward" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Expexted reward <span class="math notranslate nohighlight">\(q_*(a)\)</span> can be estimated using the sample average.</p></li>
+<li><p>The incremental implementation can be used to update the estimated value without storing all the rewards and actions.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon\)</span>-greedy policy balances exploration and exploitation.</p></li>
+<li><p>By combining the incremental implementation and the <span class="math notranslate nohighlight">\(\epsilon\)</span>-greedy policy, a simple bandit algorithm is introduced.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -413,7 +767,7 @@ document.write(`
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -422,7 +776,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Welcome to your Jupyter Book</p>
+        <p class="prev-next-title">Welcome</p>
       </div>
     </a>
     <a class="right-next"
@@ -430,7 +784,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Markov Decision Process</p>
+        <p class="prev-next-title">Markov Decision Processes</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -441,7 +795,31 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-reward-and-estimated-reward">Expected Reward and Estimated reward</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incremental-implementation">Incremental Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploration-and-exploitation">Exploration and Exploitation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-bandit-algorithm">A Simple Bandit Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-implementation">Python Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-armed-bandit-problem">Multi-armed Bandit Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-newsvendor-problem">The Newsvendor Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
@@ -486,8 +864,8 @@ By Ziang Liu
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
   </footer>

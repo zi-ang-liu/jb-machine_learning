@@ -43,13 +43,13 @@ $$
 p(s', r | s, a) = \Pr\{S_{t} = s', R_{t} = r | S_{t-1} = s, A_{t-1} = a\}
 $$
 
-{% hint style="info" %}
-**Markov Property**:
+````{prf:definition} Markov Property
+:label: markov-property
 
 The state has the _Markov property_ if the state includes all relevant information from the interaction history that may affect the future.
 
 Note that $p$ captures all the environment's dynamics completely. The possibility of each possible $S_t$ and $R_t$ depends only on the preceding state $S_{t-1}$ and action $A_{t-1}$.
-{% endhint %}
+````
 
 ### Reward function
 
@@ -115,17 +115,17 @@ $$
 \begin{aligned} v_{\pi}(s) &= \mathbb{E}_{\pi}[G_t | S_t = s] \\ &= \mathbb{E}_{\pi}[{R_{t+1} + \gamma G_{t+1} | S_t = s}] \\ &= \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma \mathbb{E}_{\pi}[G_{t+1} | S_{t+1} = s']] \\ &= \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')] \end{aligned}
 $$
 
-{% hint style="info" %}
-**Bellman Equation**:
+````{prf:theorem} Bellman Equation
+:label: bellman-equation
 
 The last equation is known as the _Bellman equation_.
 
-$$
+```{math}
 v_{\pi}(s) = \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')]
-$$
+```
 
 It is write in recursive form that indicates the relationship between $v_{\pi}(s)$ and all the possible successor states' values $v_{\pi}(s')$.
-{% endhint %}
+````
 
 ## Optimal Policies and Optimal Value Functions
 
@@ -149,23 +149,24 @@ $$
 
 The last equation is known as the _Bellman optimality equation_.
 
-{% hint style="info" %}
-**Bellman optimality equation**:
+````{prf:theorem} Bellman optimality equation
+:label: bellman-optimality-equation
 
 The last equation is known as the _Bellman optimality equation_ for the state-value function.
 
-$$
+```{math}
 v_*(s) = \max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_*(s')]
-$$
+```
 
 The Bellman optimality equation is a system of nonlinear equations. The solution to the system of equations is the optimal value function. For a finite MDP that has $n$ states, the system of equations has $n$ equations and $n$ unknowns.
 
 In addition, the Bellman optimality equation for the action-value function is:
 
-$$
+```{math}
 q_*(s, a) = \sum_{s', r} p(s', r | s, a) [r + \gamma \max_{a'} q_*(s', a')]
-$$
-{% endhint %}
+```
+
+````
 
 Note that if we know the optimal value function $v_*(s)$, for all $s \in \mathcal{S}$, we can easily find the optimal policy $\pi_*(s)$ by selecting the action that maximizes the right-hand side of the Bellman optimality equation.
 
@@ -195,8 +196,6 @@ Notes:
 ### Linear Programming for Cliff Walking Problem
 
 The goal is to find the optimal policy for moving an agent from a starting position to a goal position as quickly as possible while avoiding falling off a cliff.
-
-<figure><img src="../.gitbook/assets/cliff_walking.gif" alt="" width="360"><figcaption></figcaption></figure>
 
 ```python
 # r: reward matrix, n_state * n_action

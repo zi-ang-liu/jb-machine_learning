@@ -6,6 +6,14 @@ The multi-armed bandit problem is a classic problem in which a decision-maker ch
 
 <figure><img src="../.gitbook/assets/bandits_violin_plot.svg" alt=""><figcaption></figcaption></figure>
 
+```{figure} ../images/mab/bandits_violin_plot.svg
+---
+width: 400px
+name: bandits_violin_plot
+---
+Agent-Environment Interface
+```
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -85,14 +93,32 @@ The $\epsilon$-greedy policy is a simple policy that balances exploration and ex
 
 We have discussed the methods to estimate the expected reward and to select the action. Now, we can combine these methods to create a simple bandit algorithm. The pseudocode is as follows:
 
-<figure><img src="../.gitbook/assets/simple_bandit_algorithm.png" alt=""><figcaption></figcaption></figure>
+```{prf:algorithm} Simple Bandit Algorithm
+:label: simple_bandit_algorithm
+
+1. Initialize, for $a = 1, \dots, k$:
+    1. $Q(a) \leftarrow 0$
+    2. $N(a) \leftarrow 0$
+2. For $t = 1, 2, \dots$:
+    1. Choose $A_t$ using $\epsilon$-greedy policy based on $Q_t$
+    2. $R_t$ $\leftarrow$ bandit($A_t$)
+    3. $N(A_t) \leftarrow N(A_t) + 1$
+    4. $Q(A_t) \leftarrow Q(A_t) + \frac{1}{N(A_t)} \left( R_t - Q(A_t) \right)$
+
+```
 
 In the beginning, we initialize the estimated value $Q_t(a)$ and the number of times $N_t(a)$ for each action to 0. In each period $t$, we choose the action $A_t$ using the $\epsilon$-greedy policy. After taking action $A_t$, we receive the reward $R_t$ and update the number of times $N_t(A_t)$ . Then, we update the estimated value $Q_t(A_t)$ using the incremental implementation.
 
 ## Python Implementation
 ### Multi-armed Bandit Problem
 
-<figure><img src="../.gitbook/assets/simple_bandit.svg" alt=""><figcaption></figcaption></figure>
+```{figure} ../images/mab/simple_bandit.svg
+---
+width: 400px
+name: simple_bandit
+---
+Simple Bandit Algorithm
+```
 
 ```python
 import numpy as np
@@ -286,7 +312,15 @@ if __name__ == "__main__":
     plt.savefig("newsvendor_average_reward.svg", format="svg")
 ```
 
-<figure><img src="../.gitbook/assets/newsvendor_average_reward.svg" alt=""><figcaption></figcaption></figure>
+
+```{figure} ../images/mab/newsvendor_average_reward.svg
+---
+width: 400px
+name: newsvendor_average_reward
+---
+Average Reward vs Steps
+```
+
 
 ## Summary
 
