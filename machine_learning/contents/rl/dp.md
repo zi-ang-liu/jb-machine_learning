@@ -2,7 +2,7 @@
 
 ## Policy Evaluation
 
-The objective of _policy evaluation_ is to compute the state-value function $v\_{\pi}$ for an arbitrary policy $\pi$. Recall that the state-value function for $s \in \mathcal{S}$ is defined as
+The objective of _policy evaluation_ is to compute the state-value function $v_{\pi}$ for an arbitrary policy $\pi$. Recall that the state-value function for $s \in \mathcal{S}$ is defined as
 
 $$
 \begin{aligned} v_{\pi}(s) &= \mathbb{E}_{\pi}[G_t | S_t = s] \\ &= \mathbb{E}_{\pi}[{R_{t+1} + \gamma G_{t+1} | S_t = s}] \\ &= \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma \mathbb{E}_{\pi}[G_{t+1} | S_{t+1} = s']] \\ &= \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')] \end{aligned}
@@ -24,26 +24,21 @@ $$
 
 Iteratively updating the state-value function using the above update rule will generate a sequence of state-value functions, $v_0, v_1, v_2, \ldots$, which will converge to the true state-value function $v_{\pi}$ as $k \rightarrow \infty$. This algorithm is known as _iterative policy evaluation_.
 
-<figure><img src="../.gitbook/assets/policy_evaluation.png" alt=""><figcaption></figcaption></figure>
+```{prf:algorithm} Policy Evaluation for estimating $V \approx v_{\pi}$
+:label: policy-evaluation
 
-\begin{algorithm}[H]
-  \caption{Policy Evaluation for estimating $V \approx v_{\pi}$}\label{alg:policy iteration}
-  \KwIn{$\theta, \pi$}
-  \KwOut{$V \approx v_{\pi}$}
-  Initialize $V(s)$ arbitrarily, for all $s \in \mathcal{S}$\;
-  $\Delta \leftarrow 2\theta$\;
-    \While{$\Delta \geq \theta$}{
-      $\Delta \leftarrow 0$\;
-      \For{$s \in \mathcal{S}$}{
-        $v \leftarrow V(s)$\;
-        $V(s) \leftarrow \sum_{a} \pi(a|s) \sum_{s', r} p(s', r|s, a)[r + \gamma V(s')]$\;
-        $\Delta \leftarrow \max(\Delta, |v - V(s)|)$\;
-      }
-    }
-\end{algorithm}
+**Input**: $\theta, \pi$
 
-```{algorithm} Policy Evaluation for estimating $V \approx v_{\pi}$
+**Output**: $V \approx v_{\pi}$
 
+1. Initialize $V(s)$ arbitrarily, for all $s \in \mathcal{S}$
+2. $\Delta \leftarrow 2\theta$
+3. **while** $\Delta \geq \theta$ **do**
+    1. $\Delta \leftarrow 0$
+    2. **for** $s \in \mathcal{S}$ **do**
+        1. $v \leftarrow V(s)$
+        2. $V(s) \leftarrow \sum_{a} \pi(a|s) \sum_{s', r} p(s', r|s, a)[r + \gamma V(s')]$
+        3. $\Delta \leftarrow \max(\Delta, |v - V(s)|)$
 ```
 
 ## Policy Improvement
@@ -58,8 +53,8 @@ $$
 q_{\pi}(s, a) = \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')]
 $$
 
-{% hint style="info" %}
-**Policy Improvement Theorem**:
+````{prf:theorem} Policy Improvement Theorem
+:label: policy-improvement-theorem
 
 Let $\pi$ and $\pi'$ be any pair of deterministic policies such that, for all $s \in \mathcal{S}$,
 
@@ -74,7 +69,7 @@ v_{\pi'}(s) \geq v_{\pi}(s)
 $$
 
 Furthermore, if $q_{\pi}(s, \pi'(s)) > v_{\pi}(s)$ for at least one state $s \in \mathcal{S}$, then the policy $\pi'$ is strictly better than policy $\pi$.
-{% endhint %}
+````
 
 **Proof**:
 
@@ -90,9 +85,22 @@ $$
 \begin{aligned} \pi'(s) &= \arg\max_{a} q_{\pi}(s, a) \\ &= \arg\max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')] \end{aligned}
 $$
 
-This algorithm is known as _policy improvement_.
+This algorithm is known as _policy improvement_. The pseudo-code for policy improvement is as follows,
 
-<figure><img src="../.gitbook/assets/policy_improvement.png" alt=""><figcaption></figcaption></figure>
+```{prf:algorithm} Policy Improvement
+:label: policy-improvement
+
+**Input**: $\pi, V$
+
+**Output**: $\pi, \texttt{policy-stable}$
+
+1. $\texttt{policy-stable} \leftarrow \texttt{True}$
+2. **for** $s \in \mathcal{S}$ **do**
+    1. $a \leftarrow \pi(s)$
+    2. $\pi(s) \leftarrow \arg\max_{a} \sum_{s', r} p(s', r|s, a)[r + \gamma V(s')]$
+    3. **if** $a \neq \pi(s)$ **then**
+        1. $\quad \texttt{policy-stable} \leftarrow \texttt{False}$
+```
 
 If the new policy $\pi'$ is the same as the old policy $\pi$, $\pi' = \pi$, then we have the following equation for all $s \in \mathcal{S}$,
 
@@ -114,7 +122,34 @@ Given an arbitrary policy $\pi$, we can use the iterative policy evaluation algo
 
 This algorithm is known as _policy iteration_. The pseudo-code for policy iteration is as follows,
 
-<figure><img src="../.gitbook/assets/policy_iteration.png" alt=""><figcaption></figcaption></figure>
+
+```{prf:algorithm} Policy Iteration for estimating $\pi \approx \pi_*$
+:label: policy-iteration
+
+**Input**: $\theta > 0$
+
+**Output**: $\pi \approx \pi_*$
+
+1. Initialize $V(s)$ and $\pi(s)$ arbitrarily, for all $s \in \mathcal{S}$
+2. **while** $\texttt{True}$ **do**
+    1. **Policy Evaluation**
+    2. $\Delta \leftarrow 2\theta$
+    3. **while** $\Delta \geq \theta$ **do**
+        1. $\Delta \leftarrow 0$
+        2. **for** $s \in \mathcal{S}$ **do**
+            1. $v \leftarrow V(s)$
+            2. $V(s) \leftarrow \sum_{a} \pi(a|s) \sum_{s', r} p(s', r|s, a)[r + \gamma V(s')]$
+            3. $\Delta \leftarrow \max(\Delta, |v - V(s)|)$
+    4. **Policy Improvement**
+    5. $\texttt{policy-stable} \leftarrow \texttt{True}$
+    6. **for** $s \in \mathcal{S}$ **do**
+        1. $a \leftarrow \pi(s)$
+        2. $\pi(s) \leftarrow \arg\max_{a} \sum_{s', r} p(s', r|s, a)[r + \gamma V(s')]$
+        3. **if** $a \neq \pi(s)$ **then**
+            1. $\texttt{policy-stable} \leftarrow \texttt{False}$
+    7. **if** $\texttt{policy-stable}$ **then**
+        1. **break**
+```
 
 ## Value Iteration
 
@@ -130,7 +165,22 @@ From an arbitrary initial state-value function $v_0$, the value iteration algori
 
 The pseudo-code for value iteration is as follows,
 
-<figure><img src="../.gitbook/assets/value_iteration.png" alt=""><figcaption></figcaption></figure>
+```{prf:algorithm} Value Iteration for estimating $\pi \approx \pi_*$
+:label: value-iteration
+
+**Input**: $\theta > 0$
+
+**Output**: $\pi \approx \pi_*$
+
+1. Initialize $V(s)$ arbitrarily, for all $s \in \mathcal{S}^{+}$
+2. Initialize $V(\texttt{terminal})=0$
+3. **while** $\Delta \geq \theta$ **do**
+    1. $\Delta \leftarrow 0$
+    2. **for** $s \in \mathcal{S}$ **do**
+        1. $v \leftarrow V(s)$
+        2. $V(s) \leftarrow \max_{a} \sum_{s', r} p(s', r|s, a)[r + \gamma V(s')]$
+        3. $\Delta \leftarrow \max(\Delta, |v - V(s)|)$
+```
 
 ## Python Implementation
 

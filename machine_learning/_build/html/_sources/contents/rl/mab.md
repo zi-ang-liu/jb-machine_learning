@@ -4,8 +4,6 @@
 
 The multi-armed bandit problem is a classic problem in which a decision-maker chooses between $k$ different actions, each of which has an unknown reward distribution. After each action, the decision-maker receives a reward from a stationary probability distribution. The objective is to maximize the total reward over some time period.
 
-<figure><img src="../.gitbook/assets/bandits_violin_plot.svg" alt=""><figcaption></figcaption></figure>
-
 ```{figure} ../images/mab/bandits_violin_plot.svg
 ---
 width: 400px

@@ -9,6 +9,7 @@ parts:
     - file: contents/rl/mab
     - file: contents/rl/mdp
     - file: contents/rl/dp
+    - file: contents/rl/td
 
   - caption: Large Language Models
     chapters:

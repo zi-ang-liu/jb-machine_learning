@@ -43,7 +43,6 @@ $$
 p(s', r | s, a) = \Pr\{S_{t} = s', R_{t} = r | S_{t-1} = s, A_{t-1} = a\}
 $$
 
-
 ````{prf:definition} Markov Property
 :label: markov-property
 
@@ -51,7 +50,6 @@ The state has the _Markov property_ if the state includes all relevant informati
 
 Note that $p$ captures all the environment's dynamics completely. The possibility of each possible $S_t$ and $R_t$ depends only on the preceding state $S_{t-1}$ and action $A_{t-1}$.
 ````
-
 
 ### Reward function
 

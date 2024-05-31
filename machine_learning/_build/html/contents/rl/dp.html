@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -53,15 +53,17 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'contents/rl/dp';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="LangChain" href="../llm/langchain.html" />
+    <link rel="next" title="Temporal-Difference Learning" href="td.html" />
     <link rel="prev" title="Markov Decision Processes" href="mdp.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -183,6 +185,7 @@
 <li class="toctree-l1"><a class="reference internal" href="mab.html">Multi-armed Bandits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mdp.html">Markov Decision Processes</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Dynamic Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="td.html">Temporal-Difference Learning</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Large Language Models</span></p>
 <ul class="nav bd-sidenav">
@@ -359,7 +362,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -375,6 +380,22 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-evaluation">Policy Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-improvement">Policy Improvement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-iteration">Policy Iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#value-iteration">Value Iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-implementation">Python Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#value-iteration-for-jack-s-car-rental">Value Iteration for Jack’s Car Rental</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -386,6 +407,373 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="dynamic-programming">
 <h1>Dynamic Programming<a class="headerlink" href="#dynamic-programming" title="Link to this heading">#</a></h1>
+<section id="policy-evaluation">
+<h2>Policy Evaluation<a class="headerlink" href="#policy-evaluation" title="Link to this heading">#</a></h2>
+<p>The objective of <em>policy evaluation</em> is to compute the state-value function <span class="math notranslate nohighlight">\(v_{\pi}\)</span> for an arbitrary policy <span class="math notranslate nohighlight">\(\pi\)</span>. Recall that the state-value function for <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned} v_{\pi}(s) &amp;= \mathbb{E}_{\pi}[G_t | S_t = s] \\ &amp;= \mathbb{E}_{\pi}[{R_{t+1} + \gamma G_{t+1} | S_t = s}] \\ &amp;= \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma \mathbb{E}_{\pi}[G_{t+1} | S_{t+1} = s']] \\ &amp;= \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')] \end{aligned}
+\end{split}\]</div>
+<p>In MDPs, the environment’s dynamics are completely known, given an arbitrary policy <span class="math notranslate nohighlight">\(\pi\)</span>, so the only unknown in the above equation is the state-value function <span class="math notranslate nohighlight">\(v_{\pi}(s), \forall s \in \mathcal{S}\)</span>. Consequently, the equation below is a system of <span class="math notranslate nohighlight">\(|\mathcal{S}|\)</span> linear equations in <span class="math notranslate nohighlight">\(|\mathcal{S}|\)</span> unknowns,</p>
+<div class="math notranslate nohighlight">
+\[
+v_{\pi}(s) = \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')], \forall s \in \mathcal{S}
+\]</div>
+<p>This system of equations can be solved straightforwardly using linear algebra techniques.</p>
+<p>In addition, iterative solution methods can also be used to solve the system of equations. First, we initialize the state-value function arbitrarily, say <span class="math notranslate nohighlight">\(v_0(s) = 0, \forall s \in \mathcal{S}\)</span>. Then, we iteratively update the state-value function using the following update rule,</p>
+<div class="math notranslate nohighlight">
+\[
+v_{k+1}(s) = \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')], \forall s \in \mathcal{S}
+\]</div>
+<p>Iteratively updating the state-value function using the above update rule will generate a sequence of state-value functions, <span class="math notranslate nohighlight">\(v_0, v_1, v_2, \ldots\)</span>, which will converge to the true state-value function <span class="math notranslate nohighlight">\(v_{\pi}\)</span> as <span class="math notranslate nohighlight">\(k \rightarrow \infty\)</span>. This algorithm is known as <em>iterative policy evaluation</em>.</p>
+<div class="proof algorithm admonition" id="policy-evaluation">
+<p class="admonition-title"><span class="caption-number">Algorithm 2 </span> (Policy Evaluation for estimating <span class="math notranslate nohighlight">\(V \approx v_{\pi}\)</span>)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Input</strong>: <span class="math notranslate nohighlight">\(\theta, \pi\)</span></p>
+<p><strong>Output</strong>: <span class="math notranslate nohighlight">\(V \approx v_{\pi}\)</span></p>
+<ol class="arabic simple">
+<li><p>Initialize <span class="math notranslate nohighlight">\(V(s)\)</span> arbitrarily, for all <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta \leftarrow 2\theta\)</span></p></li>
+<li><p><strong>while</strong> <span class="math notranslate nohighlight">\(\Delta \geq \theta\)</span> <strong>do</strong></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\Delta \leftarrow 0\)</span></p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span> <strong>do</strong></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(v \leftarrow V(s)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(V(s) \leftarrow \sum_{a} \pi(a|s) \sum_{s', r} p(s', r|s, a)[r + \gamma V(s')]\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta \leftarrow \max(\Delta, |v - V(s)|)\)</span></p></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+</div></section>
+<section id="policy-improvement">
+<h2>Policy Improvement<a class="headerlink" href="#policy-improvement" title="Link to this heading">#</a></h2>
+<p>Given a policy <span class="math notranslate nohighlight">\(\pi\)</span>, the iterative policy evaluation algorithm can be used to estimate the state-value function <span class="math notranslate nohighlight">\(v_{\pi}\)</span>. The state-value function <span class="math notranslate nohighlight">\(v_{\pi}\)</span> describes expected return from each state under policy <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
+<p>Once the state-value function <span class="math notranslate nohighlight">\(v_{\pi}\)</span> is estimated, can we improve the policy to get better expected return? The answer is yes.</p>
+<p>For a given state <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span>, we choose the action <span class="math notranslate nohighlight">\(a \in \mathcal{A}\)</span> and use <span class="math notranslate nohighlight">\(\pi\)</span> thereafter. The value is given by</p>
+<div class="math notranslate nohighlight">
+\[
+q_{\pi}(s, a) = \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')]
+\]</div>
+<div class="proof theorem admonition" id="policy-improvement-theorem">
+<p class="admonition-title"><span class="caption-number">Theorem 3 </span> (Policy Improvement Theorem)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\pi\)</span> and <span class="math notranslate nohighlight">\(\pi'\)</span> be any pair of deterministic policies such that, for all <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+q_{\pi}(s, \pi'(s)) \geq v_{\pi}(s)
+\]</div>
+<p>Then the policy <span class="math notranslate nohighlight">\(\pi'\)</span> must be as good as, or better than, policy <span class="math notranslate nohighlight">\(\pi\)</span>. Therefore, for all <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+v_{\pi'}(s) \geq v_{\pi}(s)
+\]</div>
+<p>Furthermore, if <span class="math notranslate nohighlight">\(q_{\pi}(s, \pi'(s)) &gt; v_{\pi}(s)\)</span> for at least one state <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span>, then the policy <span class="math notranslate nohighlight">\(\pi'\)</span> is strictly better than policy <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
+</section>
+</div><p><strong>Proof</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned} v_{\pi}(s) &amp; \leq q_{\pi}(s, \pi'(s)) \\ &amp; = \mathbb{E}[R_{t+1} + \gamma v_{\pi}(S_{t+1}) | S_t = s, A_t = \pi'(s)] \\ &amp; = \mathbb{E}_{\pi'}[R_{t+1} + \gamma v_{\pi}(S_{t+1}) | S_t = s] \\ &amp; \leq \mathbb{E}_{\pi'}[{R_{t+1} + \gamma q_{\pi}(S_{t+1}, \pi'(S_{t+1})) | S_t = s}] \\ &amp; = \mathbb{E}_{\pi'}[R_{t+1} + \gamma R_{t+2} + \gamma^2 v_{\pi}(S_{t+2}) | S_t = s] \\ &amp; \leq \mathbb{E}_{\pi'}[R_{t+1} + \gamma R_{t+2} + \gamma^2 q_{\pi}(S_{t+2}, \pi'(S_{t+2})) | S_t = s] \\ &amp; \dots \\ &amp; \leq \mathbb{E}_{\pi'}[R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots | S_t = s] \\ &amp; = v_{\pi'}(s) \end{aligned}
+\end{split}\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(\mathbb{E}_{\pi'}[R_{t+1} + \gamma R_{t+2} + \gamma^2 v_{\pi}(S_{t+2}) | S_t = s]\)</span> means that we choose actions according to <span class="math notranslate nohighlight">\(\pi'\)</span> and get <span class="math notranslate nohighlight">\(R_{t+1}\)</span> and <span class="math notranslate nohighlight">\(R_{t+2}\)</span> and then use <span class="math notranslate nohighlight">\(\pi\)</span> thereafter.</p>
+<p>With the policy improvement theorem, given a policy <span class="math notranslate nohighlight">\(\pi\)</span> and its state-value function <span class="math notranslate nohighlight">\(v_{\pi}\)</span>, we can construct a new policy <span class="math notranslate nohighlight">\(\pi'\)</span> that is as good as, or better than, policy <span class="math notranslate nohighlight">\(\pi\)</span>. The new policy <span class="math notranslate nohighlight">\(\pi'\)</span> is constructed by selecting the action that maximizes the state-action value function <span class="math notranslate nohighlight">\(q_{\pi}(s, a)\)</span> for each state <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned} \pi'(s) &amp;= \arg\max_{a} q_{\pi}(s, a) \\ &amp;= \arg\max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')] \end{aligned}
+\end{split}\]</div>
+<p>This algorithm is known as <em>policy improvement</em>. The pseudo-code for policy improvement is as follows,</p>
+<div class="proof algorithm admonition" id="policy-improvement">
+<p class="admonition-title"><span class="caption-number">Algorithm 3 </span> (Policy Improvement)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Input</strong>: <span class="math notranslate nohighlight">\(\pi, V\)</span></p>
+<p><strong>Output</strong>: <span class="math notranslate nohighlight">\(\pi, \texttt{policy-stable}\)</span></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\texttt{policy-stable} \leftarrow \texttt{True}\)</span></p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span> <strong>do</strong></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(a \leftarrow \pi(s)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\pi(s) \leftarrow \arg\max_{a} \sum_{s', r} p(s', r|s, a)[r + \gamma V(s')]\)</span></p></li>
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(a \neq \pi(s)\)</span> <strong>then</strong></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\quad \texttt{policy-stable} \leftarrow \texttt{False}\)</span></p></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+</div><p>If the new policy <span class="math notranslate nohighlight">\(\pi'\)</span> is the same as the old policy <span class="math notranslate nohighlight">\(\pi\)</span>, <span class="math notranslate nohighlight">\(\pi' = \pi\)</span>, then we have the following equation for all <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned} \pi'(s) &amp;= \arg\max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')] \\ &amp;= \arg\max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi'}(s')] \\ \end{aligned}
+\end{split}\]</div>
+<p>Hence,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned} v_{\pi'}(s) &amp;= \max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi'}(s')] \\ \end{aligned}
+\end{split}\]</div>
+<p>This equation is the same as the Bellman optimality equation. Therefore, <span class="math notranslate nohighlight">\(v_{\pi'}(s) = v_{*}(s)\)</span>, and <span class="math notranslate nohighlight">\(\pi' = \pi_{*}\)</span>.</p>
+</section>
+<section id="policy-iteration">
+<h2>Policy Iteration<a class="headerlink" href="#policy-iteration" title="Link to this heading">#</a></h2>
+<p>Given an arbitrary policy <span class="math notranslate nohighlight">\(\pi\)</span>, we can use the iterative policy evaluation algorithm to estimate the state-value function <span class="math notranslate nohighlight">\(v_{\pi}\)</span>. Then, we can use the policy improvement algorithm to construct a new policy <span class="math notranslate nohighlight">\(\pi'\)</span> that is as good as, or better than, policy <span class="math notranslate nohighlight">\(\pi\)</span>. Iteratively applying the policy evaluation and policy improvement algorithms will generate a sequence of policies, <span class="math notranslate nohighlight">\(\pi_0, \pi_1, \pi_2, \ldots\)</span>. If the new policy <span class="math notranslate nohighlight">\(\pi'\)</span> is the same as the old policy <span class="math notranslate nohighlight">\(\pi\)</span>, then we have found the optimal policy <span class="math notranslate nohighlight">\(\pi_{*}\)</span>.</p>
+<p>This algorithm is known as <em>policy iteration</em>. The pseudo-code for policy iteration is as follows,</p>
+<div class="proof algorithm admonition" id="policy-iteration">
+<p class="admonition-title"><span class="caption-number">Algorithm 4 </span> (Policy Iteration for estimating <span class="math notranslate nohighlight">\(\pi \approx \pi_*\)</span>)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Input</strong>: <span class="math notranslate nohighlight">\(\theta &gt; 0\)</span></p>
+<p><strong>Output</strong>: <span class="math notranslate nohighlight">\(\pi \approx \pi_*\)</span></p>
+<ol class="arabic simple">
+<li><p>Initialize <span class="math notranslate nohighlight">\(V(s)\)</span> and <span class="math notranslate nohighlight">\(\pi(s)\)</span> arbitrarily, for all <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span></p></li>
+<li><p><strong>while</strong> <span class="math notranslate nohighlight">\(\texttt{True}\)</span> <strong>do</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Policy Evaluation</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta \leftarrow 2\theta\)</span></p></li>
+<li><p><strong>while</strong> <span class="math notranslate nohighlight">\(\Delta \geq \theta\)</span> <strong>do</strong></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\Delta \leftarrow 0\)</span></p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span> <strong>do</strong></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(v \leftarrow V(s)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(V(s) \leftarrow \sum_{a} \pi(a|s) \sum_{s', r} p(s', r|s, a)[r + \gamma V(s')]\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta \leftarrow \max(\Delta, |v - V(s)|)\)</span></p></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p><strong>Policy Improvement</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\(\texttt{policy-stable} \leftarrow \texttt{True}\)</span></p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span> <strong>do</strong></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(a \leftarrow \pi(s)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\pi(s) \leftarrow \arg\max_{a} \sum_{s', r} p(s', r|s, a)[r + \gamma V(s')]\)</span></p></li>
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(a \neq \pi(s)\)</span> <strong>then</strong></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\texttt{policy-stable} \leftarrow \texttt{False}\)</span></p></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(\texttt{policy-stable}\)</span> <strong>then</strong></p>
+<ol class="arabic simple">
+<li><p><strong>break</strong></p></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+</div></section>
+<section id="value-iteration">
+<h2>Value Iteration<a class="headerlink" href="#value-iteration" title="Link to this heading">#</a></h2>
+<p>The policy iteration algorithm iteratively applies the policy evaluation and policy improvement to find the optimal policy <span class="math notranslate nohighlight">\(\pi_{*}\)</span>.</p>
+<p>An alternative to policy iteration is the <em>value iteration</em> algorithm. The value iteration iteratively applies the Bellman optimality equation as an update rule to find the optimal state-value function <span class="math notranslate nohighlight">\(v_{*}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+v_{k+1}(s) = \max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_{k}(s')], \forall s \in \mathcal{S}
+\]</div>
+<p>From an arbitrary initial state-value function <span class="math notranslate nohighlight">\(v_0\)</span>, the value iteration algorithm generates a sequence of state-value functions, <span class="math notranslate nohighlight">\(v_0, v_1, v_2, \ldots\)</span>, which will eventually converge to the optimal state-value function <span class="math notranslate nohighlight">\(v_{*}\)</span>.</p>
+<p>The pseudo-code for value iteration is as follows,</p>
+<div class="proof algorithm admonition" id="value-iteration">
+<p class="admonition-title"><span class="caption-number">Algorithm 5 </span> (Value Iteration for estimating <span class="math notranslate nohighlight">\(\pi \approx \pi_*\)</span>)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Input</strong>: <span class="math notranslate nohighlight">\(\theta &gt; 0\)</span></p>
+<p><strong>Output</strong>: <span class="math notranslate nohighlight">\(\pi \approx \pi_*\)</span></p>
+<ol class="arabic simple">
+<li><p>Initialize <span class="math notranslate nohighlight">\(V(s)\)</span> arbitrarily, for all <span class="math notranslate nohighlight">\(s \in \mathcal{S}^{+}\)</span></p></li>
+<li><p>Initialize <span class="math notranslate nohighlight">\(V(\texttt{terminal})=0\)</span></p></li>
+<li><p><strong>while</strong> <span class="math notranslate nohighlight">\(\Delta \geq \theta\)</span> <strong>do</strong></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\Delta \leftarrow 0\)</span></p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(s \in \mathcal{S}\)</span> <strong>do</strong></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(v \leftarrow V(s)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(V(s) \leftarrow \max_{a} \sum_{s', r} p(s', r|s, a)[r + \gamma V(s')]\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta \leftarrow \max(\Delta, |v - V(s)|)\)</span></p></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+</div></section>
+<section id="python-implementation">
+<h2>Python Implementation<a class="headerlink" href="#python-implementation" title="Link to this heading">#</a></h2>
+<section id="value-iteration-for-jack-s-car-rental">
+<h3>Value Iteration for Jack’s Car Rental<a class="headerlink" href="#value-iteration-for-jack-s-car-rental" title="Link to this heading">#</a></h3>
+<p>The goal is to find the optimal policy for moving cars between two locations based on the expected number of cars at each location at the end of the day. The problem is formulated as a Markov Decision Process (MDP) and solved using value iteration</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">poisson</span>
+
+<span class="k">def</span> <span class="nf">build_car_rental_dynamics</span><span class="p">():</span>
+    <span class="c1"># parameters</span>
+    <span class="n">CREDIT</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">MOVING_COST</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">LAMBDA_RENTAL_REQUEST_1</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">LAMBDA_RENTAL_REQUEST_2</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">LAMBDA_RETURN_1</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">LAMBDA_RETURN_2</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">MAX_CARS</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">MAX_MOVE</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">EPSILON</span> <span class="o">=</span> <span class="mf">1e-4</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_CARS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">LAMBDA_RENTAL_REQUEST_1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">EPSILON</span><span class="p">:</span>
+            <span class="n">MAX_RENTAL_REQUEST_1</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">break</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_CARS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">LAMBDA_RENTAL_REQUEST_2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">EPSILON</span><span class="p">:</span>
+            <span class="n">MAX_RENTAL_REQUEST_2</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">break</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_CARS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">LAMBDA_RETURN_1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">EPSILON</span><span class="p">:</span>
+            <span class="n">MAX_RETURN_1</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">break</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_CARS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">LAMBDA_RETURN_2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">EPSILON</span><span class="p">:</span>
+            <span class="n">MAX_RETURN_2</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">break</span>
+
+    <span class="c1"># initialize state space, action space, dynamics, and probability dictionary</span>
+    <span class="n">state_space</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_CARS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                   <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_CARS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="n">action_space</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">MAX_MOVE</span><span class="p">,</span> <span class="n">MAX_MOVE</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">dynamics</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">prob_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># build probability dictionary</span>
+    <span class="k">for</span> <span class="n">rental_request_1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_RENTAL_REQUEST_1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">prob_dict</span><span class="p">[</span><span class="n">rental_request_1</span><span class="p">,</span> <span class="n">LAMBDA_RENTAL_REQUEST_1</span><span class="p">]</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span>
+            <span class="n">rental_request_1</span><span class="p">,</span> <span class="n">LAMBDA_RENTAL_REQUEST_1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">rental_request_2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_RENTAL_REQUEST_2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">prob_dict</span><span class="p">[</span><span class="n">rental_request_2</span><span class="p">,</span> <span class="n">LAMBDA_RENTAL_REQUEST_2</span><span class="p">]</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span>
+            <span class="n">rental_request_2</span><span class="p">,</span> <span class="n">LAMBDA_RENTAL_REQUEST_2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">return_1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_RETURN_1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">prob_dict</span><span class="p">[</span><span class="n">return_1</span><span class="p">,</span> <span class="n">LAMBDA_RETURN_1</span><span class="p">]</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span>
+            <span class="n">return_1</span><span class="p">,</span> <span class="n">LAMBDA_RETURN_1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">return_2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_RETURN_2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">prob_dict</span><span class="p">[</span><span class="n">return_2</span><span class="p">,</span> <span class="n">LAMBDA_RETURN_2</span><span class="p">]</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span>
+            <span class="n">return_2</span><span class="p">,</span> <span class="n">LAMBDA_RETURN_2</span><span class="p">)</span>
+
+    <span class="c1"># build dynamics</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">state_space</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">action_space</span><span class="p">:</span>
+            <span class="n">dynamics</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="c1"># invalid action</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">((</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">action</span> <span class="o">&lt;=</span> <span class="n">state</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="o">-</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">action</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)):</span>
+                <span class="n">reward</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+                <span class="n">next_state</span> <span class="o">=</span> <span class="n">state</span>
+                <span class="n">dynamics</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">][</span><span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">continue</span>
+
+            <span class="k">for</span> <span class="n">rental_request_1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_RENTAL_REQUEST_1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">rental_request_2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_RENTAL_REQUEST_2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">return_1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_RETURN_1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">return_2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_RETURN_2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                            <span class="c1"># moving cars</span>
+                            <span class="n">next_state</span> <span class="o">=</span> <span class="p">(</span>
+                                <span class="nb">min</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">action</span><span class="p">,</span> <span class="n">MAX_CARS</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">action</span><span class="p">,</span> <span class="n">MAX_CARS</span><span class="p">))</span>
+                            <span class="n">reward</span> <span class="o">=</span> <span class="o">-</span><span class="n">MOVING_COST</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+                            <span class="n">prob</span> <span class="o">=</span> <span class="n">prob_dict</span><span class="p">[</span><span class="n">rental_request_1</span><span class="p">,</span> <span class="n">LAMBDA_RENTAL_REQUEST_1</span><span class="p">]</span> <span class="o">*</span> \
+                                <span class="n">prob_dict</span><span class="p">[</span><span class="n">rental_request_2</span><span class="p">,</span> <span class="n">LAMBDA_RENTAL_REQUEST_2</span><span class="p">]</span> <span class="o">*</span> \
+                                <span class="n">prob_dict</span><span class="p">[</span><span class="n">return_1</span><span class="p">,</span> <span class="n">LAMBDA_RETURN_1</span><span class="p">]</span> <span class="o">*</span> \
+                                <span class="n">prob_dict</span><span class="p">[</span><span class="n">return_2</span><span class="p">,</span> <span class="n">LAMBDA_RETURN_2</span><span class="p">]</span>
+                            <span class="n">valid_rental_1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">next_state</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rental_request_1</span><span class="p">)</span>
+                            <span class="n">valid_rental_2</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">next_state</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">rental_request_2</span><span class="p">)</span>
+                            <span class="n">reward</span> <span class="o">=</span> <span class="n">reward</span> <span class="o">+</span> <span class="n">CREDIT</span> <span class="o">*</span> \
+                                <span class="p">(</span><span class="n">valid_rental_1</span> <span class="o">+</span> <span class="n">valid_rental_2</span><span class="p">)</span>
+                            <span class="n">next_state</span> <span class="o">=</span> <span class="p">(</span>
+                                <span class="n">next_state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">valid_rental_1</span><span class="p">,</span> <span class="n">next_state</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">valid_rental_2</span><span class="p">)</span>
+
+                            <span class="c1"># return cars</span>
+                            <span class="n">next_state</span> <span class="o">=</span> <span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">next_state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">return_1</span><span class="p">,</span> <span class="n">MAX_CARS</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span>
+                                <span class="n">next_state</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">return_2</span><span class="p">,</span> <span class="n">MAX_CARS</span><span class="p">))</span>
+
+                            <span class="k">if</span> <span class="p">(</span><span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">)</span> <span class="ow">in</span> <span class="n">dynamics</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">]:</span>
+                                <span class="n">dynamics</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">][</span><span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">]</span> <span class="o">+=</span> <span class="n">prob</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">dynamics</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">][</span><span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">]</span> <span class="o">=</span> <span class="n">prob</span>
+
+    <span class="n">init_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">MAX_CARS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">MAX_CARS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">init_policy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">MAX_CARS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">MAX_CARS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">dynamics</span><span class="p">,</span> <span class="n">state_space</span><span class="p">,</span> <span class="n">action_space</span><span class="p">,</span> <span class="n">init_value</span><span class="p">,</span> <span class="n">init_policy</span>
+
+<span class="k">def</span> <span class="nf">value_iteration</span><span class="p">(</span><span class="n">dynamics</span><span class="p">,</span> <span class="n">state_space</span><span class="p">,</span> <span class="n">action_space</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+    <span class="c1"># initialize value</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">delta</span> <span class="o">&gt;=</span> <span class="n">theta</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">value_old</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">state_space</span><span class="p">:</span>
+            <span class="c1"># Update V[s].</span>
+            <span class="n">value</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">sum</span><span class="p">([</span><span class="n">prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">reward</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">value_old</span><span class="p">[</span><span class="n">next_state</span><span class="p">])</span> <span class="k">for</span> <span class="p">(</span>
+                <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">),</span> <span class="n">prob</span> <span class="ow">in</span> <span class="n">dynamics</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span> <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">action_space</span><span class="p">])</span>
+            <span class="c1"># print(&#39;State {}, value = {}&#39;.format(state, value[state]))</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="n">value_old</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Iteration </span><span class="si">{}</span><span class="s1">, delta = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">delta</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">state_space</span><span class="p">:</span>
+        <span class="n">q_max_value</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+        <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">action_space</span><span class="p">:</span>
+            <span class="n">q_value_temp</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">reward</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">value</span><span class="p">[</span><span class="n">next_state</span><span class="p">])</span>
+                             <span class="k">for</span> <span class="p">(</span><span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">),</span> <span class="n">prob</span> <span class="ow">in</span> <span class="n">dynamics</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+            <span class="k">if</span> <span class="n">q_value_temp</span> <span class="o">&gt;</span> <span class="n">q_max_value</span><span class="p">:</span>
+                <span class="n">q_max_value</span> <span class="o">=</span> <span class="n">q_value_temp</span>
+                <span class="n">policy</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">action</span>
+    <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">policy</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="n">dynamics</span><span class="p">,</span> <span class="n">state_space</span><span class="p">,</span> <span class="n">action_space</span><span class="p">,</span> <span class="n">init_value</span><span class="p">,</span> <span class="n">init_policy</span> <span class="o">=</span> <span class="n">build_car_rental_dynamics</span><span class="p">()</span>
+
+    <span class="n">value</span><span class="p">,</span> <span class="n">policy</span> <span class="o">=</span> <span class="n">value_iteration</span><span class="p">(</span>
+        <span class="n">dynamics</span><span class="p">,</span> <span class="n">state_space</span><span class="p">,</span> <span class="n">action_space</span><span class="p">,</span> <span class="n">init_value</span><span class="p">,</span> <span class="n">init_policy</span><span class="p">)</span>
+
+    <span class="c1"># plot</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;# of cars at second location&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;# of cars at first location&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Policy&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;policy.png&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1"># plot</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;# of cars at second location&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;# of cars at first location&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Value.png&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Dynamic programming methods can be used to solve MDPs.</p></li>
+<li><p>Policy evaluation estimates the state-value function for an arbitrary policy.</p></li>
+<li><p>Policy improvement constructs a new policy that is as good as, or better than, the old policy.</p></li>
+<li><p>Policy iteration iteratively applies policy evaluation and policy improvement to find the optimal policy.</p></li>
+<li><p>Value iteration iteratively applies the Bellman optimality equation to find the optimal state-value function.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -428,11 +816,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="../llm/langchain.html"
+       href="td.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">LangChain</p>
+        <p class="prev-next-title">Temporal-Difference Learning</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -442,6 +830,29 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-evaluation">Policy Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-improvement">Policy Improvement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-iteration">Policy Iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#value-iteration">Value Iteration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-implementation">Python Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#value-iteration-for-jack-s-car-rental">Value Iteration for Jack’s Car Rental</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
