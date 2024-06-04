@@ -6,8 +6,7 @@
 ```{prf:algorithm} Q-learning for estimating $\pi \approx \pi_{*}$
 :label: q-learning
 
-**Input**: a small $\epsilon > 0$, a small $\alpha \in (0,1]$
-
+**Input**: a small $\epsilon > 0$, a small $\alpha \in (0,1]$   
 **Output**: output a deterministic policy $\pi \approx \pi_{*}$
 
 1. Initialize $Q(s,a)$, for all $s \in \mathcal{S}^{+}, a \in \mathcal{A}(s)$, arbitrarily except that $Q(\texttt{terminal}, \cdot) = 0$
