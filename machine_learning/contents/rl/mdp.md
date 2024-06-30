@@ -1,6 +1,6 @@
 # Markov Decision Processes
 
-The multi-armed bandit problem is a nonassociative problem, that is it does not involve learning to action in more than one situation. Consider the newsvendor problem, the number of newspapers in the morning is always 0, regardless of the previous day's orders and sales. However, many real-world problems are associative. Therefore, we need to learn to choose different actions in different situations.
+The multi-armed bandit problem is nonassociative. It only involves learning to act in one situation. Consider the newsvendor problem. The number of newspapers in the morning is always 0, regardless of the previous day's orders and sales. However, many real-world problems are associative. Therefore, we need to learn to choose different actions in different situations.
 
 Markov decision processes (MDPs) are associative problems in which the action taken in the current period affects the future states and rewards. MDPs are idealized models of reinforcement learning problems. In MDPs, complete knowledge of the environment is available.
 
@@ -38,7 +38,7 @@ $$S_0, A_0, R_1, S_1, A_1, R_2, S_2, A_2, R_3, \ldots$$
 
 ### Dynamics function
 
-The function function $p$ defines the probability of transitioning to state $s'$ and receiving reward $r$ given state $s$ and action $a$.
+The transition function $p$ defines the probability of transitioning to state $s'$ and receiving reward $r$ given state $s$ and action $a$.
 
 $$
 p(s', r | s, a) = \Pr\{S_{t} = s', R_{t} = r | S_{t-1} = s, A_{t-1} = a\}
@@ -68,9 +68,9 @@ $$
 
 ### Return
 
-The objective of the agent is to maximize the expected value of the cumulative sum of a received scalar signal (reward).
+The agent's objective is to maximize the expected value of the cumulative sum of a received scalar signal (reward).
 
-To formalize the objective, we define the _return_ $G_t$ as certain function of the rewards received after time $t$. The simplest form of return is the sum of rewards:
+To formalize the objective, we define the _return_ $G_t$ as a function of the rewards received after time $t$. The simplest form of return is the sum of rewards:
 
 $$
 G_t = R_{t+1} + R_{t+2} + R_{t+3} + \ldots + R_T
@@ -78,7 +78,7 @@ $$
 
 where $T$ is the final time step. Note that this definition of return is suitable for tasks that will eventually end. In such cases, each _episode_ ends in a _terminal state_.
 
-There are also MDPs that do not have terminal states. We call such MDPs _continuing tasks_. In continuing tasks, the return that we defined above could be infinite. To handle such cases, we introduce the concept of _discounted return_:
+Some MDPs do not have terminal states. We call such MDPs _continuing tasks_. In continuing tasks, the return that we defined above could be infinite. To handle such cases, we introduce the concept of _discounted return_:
 
 $$
 \begin{aligned} G_t &= R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \ldots \\ &= \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \end{aligned}
@@ -96,7 +96,7 @@ $$
 
 ### Policy
 
-The agent interacts with the environment by selecting actions. To describe the agent's behavior, we introduce the concept of _policy_. A policy is a mapping from states to probabilities of selecting each possible action. A policy is denoted by $\pi$.
+The agent interacts with the environment by selecting actions. We introduce the concept of _policy_ to describe the agent's behavior. A policy is a mapping from states to probabilities of selecting each possible action. A policy is denoted by $\pi$.
 
 $$
 \pi(a | s) = \Pr\{A_t = a | S_t = s\}
@@ -104,19 +104,19 @@ $$
 
 ### Value function
 
-The value function is the expected return when starting in state $s$ and following policy $\pi$ thereafter. The _state-value function for policy_ $\pi$ is denoted by $v_{\pi}(s)$.
+The value function is the expected return when starting in state $s$ and following policy $\pi$ afterward. The _state-value function for policy_ $\pi$ is denoted by $v_{\pi}(s)$.
 
 $$
 v_{\pi}(s) = \mathbb{E}_{\pi}[G_t | S_t = s]
 $$
 
-Similarly, we use a action-value function to represent the expected return when starting in state $s$, taking action $a$, and following policy $\pi$ thereafter. The _action-value function for policy_ $\pi$ is denoted by $q_{\pi}(s, a)$.
+Similarly, we use an action-value function to represent the expected return when starting in state $s$, taking action $a$, and following policy $\pi$ afterward. The _action-value function for policy_ $\pi$ is denoted by $q_{\pi}(s, a)$.
 
 $$
 q_{\pi}(s, a) = \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a]
 $$
 
-An important property of value functions is that they satisfy recursive relationships. The value of a state can be expressed in terms of the value of its possible successor states:
+An essential property of value functions is that they satisfy recursive relationships. The value of a state can be expressed in terms of the value of its possible successor states:
 
 $$
 \begin{aligned} v_{\pi}(s) &= \mathbb{E}_{\pi}[G_t | S_t = s] \\ &= \mathbb{E}_{\pi}[{R_{t+1} + \gamma G_{t+1} | S_t = s}] \\ &= \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma \mathbb{E}_{\pi}[G_{t+1} | S_{t+1} = s']] \\ &= \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')] \end{aligned}
@@ -128,12 +128,12 @@ $$
 v_{\pi}(s) = \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')]
 $$
 
-It is write in recursive form that indicates the relationship between $v_{\pi}(s)$ and all the possible successor states' values $v_{\pi}(s')$.
+It is written in a recursive form that indicates the relationship between $v_{\pi}(s)$ and all the possible successor states' values $v_{\pi}(s')$.
 
 
 ## Optimal Policies and Optimal Value Functions
 
-For all $s \in \mathcal{S}$, if $v_{\pi}(s) \geq v_{\pi'}(s)$, then $\pi$ is better than or equal to $\pi'$, denoted by $\pi \geq \pi'$. There is always at least one policy that is better than or equal to all other policies. This policy is called the _optimal policy_ and denoted by $\pi_*$.
+For all $s \in \mathcal{S}$, if $v_{\pi}(s) \geq v_{\pi'}(s)$, then $\pi$ is better than or equal to $\pi'$, denoted by $\pi \geq \pi'$. At least one policy is always better than or equal to all other policies. This policy is called the _optimal policy_ and is denoted by $\pi_*$.
 
 Using the concept of optimal policy, we can define the _optimal state-value function_ and _optimal action-value function_ as follows:
 
@@ -157,7 +157,7 @@ $$
 v_*(s) = \max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_*(s')]
 $$
 
-The Bellman optimality equation is a system of nonlinear equations. The solution to the system of equations is the optimal value function. For a finite MDP that has $n$ states, the system of equations has $n$ equations and $n$ unknowns.
+The Bellman optimality equation is a system of nonlinear equations. The solution to the system of equations is the optimal value function. For a finite MDP with $n$ states, the system of equations has $n$ equations and $n$ unknowns.
 
 In addition, the Bellman optimality equation for the action-value function is:
 
@@ -173,7 +173,7 @@ $$
 
 ### Linear Programming
 
-The Bellman optimality equation can be solved using linear programming. This is a less frequently used method for solving MDP. The idea is that
+The Bellman optimality equation can be solved using linear programming. This is a less frequently used method for solving MDP. The ideas are as follows
 
 * If $v(s) \geq r(s, a) + \gamma \sum_{s'} p(s' | s, a) v(s')$ for all $s \in S$ and $a \in A$, then $v(s)$ is an upper bound on $v_*(s)$.
 * $v_*(s)$ must be the smallest such solution
@@ -187,12 +187,12 @@ $$
 Notes:
 
 * Linear programming methods can also be used to solve MDPs
-* Linear programming methods become impractical at a much smaller number of states than do DP methods (by a factor of about 100).
+* Linear programming methods become impractical at a much smaller number of states than DP methods (by a factor of about 100).
 
 ## Python Implementation
 ### Linear Programming for Cliff Walking Problem
 
-The agent is placed in a 4x12 grid world. The agent can move in four directions: up, down, left, and right. The agent receives a reward of -1 for each step taken. The agent receives a reward of -100 for falling off the cliff. The agent receives a reward of 0 for reaching the goal. Figure below shows the cliff walking problem implemented in OpenAI Gym.
+The agent is placed in a 4x12 grid world. The agent can move in four directions: up, down, left, and right. The agent receives a reward of -1 for each step taken, -100 for falling off the cliff, and 0 for reaching the goal. The figure below shows the cliff walking problem implemented in OpenAI Gym.
 
 ```{figure} ../images/mdp/cliff_walking.jpg
 ---
@@ -202,7 +202,7 @@ name: agent_env
 Cliff Walking Problem
 ```
 
-The agent starts at the bottom-left corner [3, 0] and the goal is at the bottom-right corner [3, 11]. The cliff is at the bottom row [3, 1] to [3, 10]. For simplicity, the state is represented as a single integer from 0 to 47. The state is computed as `current_row * n_col + current_col`.
+The agent starts at the bottom-left corner [3, 0], and the goal is at the bottom-right corner [3, 11]. The cliff is at the bottom row [3, 1] to [3, 10]. For simplicity, the state is represented as a single integer from 0 to 47. The state is computed as `current_row * n_col + current_col`.
 
 The goal is to find the optimal policy for moving an agent from a starting position to a goal position as quickly as possible while avoiding falling off a cliff.
 
