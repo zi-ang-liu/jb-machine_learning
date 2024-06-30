@@ -4,7 +4,18 @@ The multi-armed bandit problem is a nonassociative problem, that is it does not 
 
 Markov decision processes (MDPs) are associative problems in which the action taken in the current period affects the future states and rewards. MDPs are idealized models of reinforcement learning problems. In MDPs, complete knowledge of the environment is available.
 
-## Agent-Environment Interface
+## Formulation of MDP
+
+A Markov decision process (MDP) is a tuple $(\mathcal{S}, \mathcal{A}, p, r, \gamma)$ where:
+
+* $\mathcal{S}$: Set of states
+* $\mathcal{A}$: Set of actions
+* $p(s', r | s, a)$: Dynamics function $p: \mathcal{S} \times \mathcal{R} \times \mathcal{S} \times \mathcal{A} \rightarrow [0, 1]$
+* $r(s, a)$: Reward function $r: \mathcal{S} \times \mathcal{A} \rightarrow \mathbb{R}$
+* $\gamma$: Discount factor $\gamma \in [0, 1]$
+
+
+### Agent-Environment Interface
 
 MDPs are used to formulate sequential decision-making problems. The _agent_ interacts with the _environment_ to achieve a goal.
 
@@ -25,16 +36,6 @@ The interaction between the agent and the environment can be summarized as _traj
 
 $$S_0, A_0, R_1, S_1, A_1, R_2, S_2, A_2, R_3, \ldots$$
 
-## Formulation of MDP
-
-A Markov decision process (MDP) is a tuple $(\mathcal{S}, \mathcal{A}, p, r, \gamma)$ where:
-
-* $\mathcal{S}$: Set of states
-* $\mathcal{A}$: Set of actions
-* $p(s', r | s, a)$: Dynamics function $p: \mathcal{S} \times \mathcal{R} \times \mathcal{S} \times \mathcal{A} \rightarrow [0, 1]$
-* $r(s, a)$: Reward function $r: \mathcal{S} \times \mathcal{A} \rightarrow \mathbb{R}$
-* $\gamma$: Discount factor $\gamma \in [0, 1]$
-
 ### Dynamics function
 
 The function function $p$ defines the probability of transitioning to state $s'$ and receiving reward $r$ given state $s$ and action $a$.
@@ -46,10 +47,15 @@ $$
 ````{prf:definition} Markov Property
 :label: markov-property
 
-The state has the _Markov property_ if the state includes all relevant information from the interaction history that may affect the future.
+The state $s_t$ is Markov if and only if:
+
+```math
+\Pr\{S_{t+1} = s_{t+1}, R_{t+1} = r_{t+1} | S_t = s_t, A_t = a_t, S_{t-1} = s_{t-1}, A_{t-1} = a_{t-1}, \ldots\} = \Pr\{S_{t+1} = s_{t+1}, R_{t+1} = r_{t+1} | S_t = s_t, A_t = a_t\}
+````
+
+<!-- The state has the _Markov property_ if the state includes all relevant information from the interaction history that may affect the future. -->
 
 Note that $p$ captures all the environment's dynamics completely. The possibility of each possible $S_t$ and $R_t$ depends only on the preceding state $S_{t-1}$ and action $A_{t-1}$.
-````
 
 ### Reward function
 
@@ -115,17 +121,14 @@ $$
 \begin{aligned} v_{\pi}(s) &= \mathbb{E}_{\pi}[G_t | S_t = s] \\ &= \mathbb{E}_{\pi}[{R_{t+1} + \gamma G_{t+1} | S_t = s}] \\ &= \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma \mathbb{E}_{\pi}[G_{t+1} | S_{t+1} = s']] \\ &= \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')] \end{aligned}
 $$
 
-````{prf:theorem} Bellman Equation
-:label: bellman-equation
-
 The last equation is known as the _Bellman equation_.
 
-```{math}
+$$
 v_{\pi}(s) = \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a) [r + \gamma v_{\pi}(s')]
-```
+$$
 
 It is write in recursive form that indicates the relationship between $v_{\pi}(s)$ and all the possible successor states' values $v_{\pi}(s')$.
-````
+
 
 ## Optimal Policies and Optimal Value Functions
 
@@ -141,32 +144,25 @@ $$
 q_*(s, a) = \max_{\pi} q_{\pi}(s, a), \quad \forall s \in \mathcal{S}, a \in \mathcal{A}
 $$
 
-## Bellman Optimality Equation
+### Bellman Optimality Equation
 
 $$
 \begin{aligned} v_*(s) &= \max_{a} q_*(s, a) \\ &= \max_{a} \mathbb{E}_{\pi_*}[G_t | S_t = s, A_t = a] \\ &= \max_{a} \mathbb{E}_{\pi_*}[R_{t+1} + \gamma G_{t+1} | S_t = s, A_t = a] \\ &= \max_{a} \mathbb{E}[R_{t+1} + \gamma v_*({S_{t+1}}) | S_t = s, A_t = a] \\ &= \max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_*(s')] \end{aligned}
 $$
 
-The last equation is known as the _Bellman optimality equation_.
-
-````{prf:theorem} Bellman optimality equation
-:label: bellman-optimality-equation
-
 The last equation is known as the _Bellman optimality equation_ for the state-value function.
 
-```{math}
+$$
 v_*(s) = \max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_*(s')]
-```
+$$
 
 The Bellman optimality equation is a system of nonlinear equations. The solution to the system of equations is the optimal value function. For a finite MDP that has $n$ states, the system of equations has $n$ equations and $n$ unknowns.
 
 In addition, the Bellman optimality equation for the action-value function is:
 
-```{math}
+$$
 q_*(s, a) = \sum_{s', r} p(s', r | s, a) [r + \gamma \max_{a'} q_*(s', a')]
-```
-
-````
+$$
 
 Note that if we know the optimal value function $v_*(s)$, for all $s \in \mathcal{S}$, we can easily find the optimal policy $\pi_*(s)$ by selecting the action that maximizes the right-hand side of the Bellman optimality equation.
 
@@ -174,7 +170,7 @@ $$
 \pi_*(s) = \arg\max_{a} \sum_{s', r} p(s', r | s, a) [r + \gamma v_*(s')]
 $$
 
-## Linear Programming
+### Linear Programming
 
 The Bellman optimality equation can be solved using linear programming. This is a less frequently used method for solving MDP. The idea is that
 
@@ -194,6 +190,18 @@ Notes:
 
 ## Python Implementation
 ### Linear Programming for Cliff Walking Problem
+
+The agent is placed in a 4x12 grid world. The agent can move in four directions: up, down, left, and right. The agent receives a reward of -1 for each step taken. The agent receives a reward of -100 for falling off the cliff. The agent receives a reward of 0 for reaching the goal. Figure below shows the cliff walking problem implemented in OpenAI Gym.
+
+```{figure} ../images/mdp/cliff_walking.jpg
+---
+width: 400px
+name: agent_env
+---
+Cliff Walking Problem
+```
+
+The agent starts at the bottom-left corner [3, 0] and the goal is at the bottom-right corner [3, 11]. The cliff is at the bottom row [3, 1] to [3, 10]. For simplicity, the state is represented as a single integer from 0 to 47. The state is computed as `current_row * n_col + current_col`.
 
 The goal is to find the optimal policy for moving an agent from a starting position to a goal position as quickly as possible while avoiding falling off a cliff.
 
