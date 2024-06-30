@@ -44,14 +44,15 @@ $$
 p(s', r | s, a) = \Pr\{S_{t} = s', R_{t} = r | S_{t-1} = s, A_{t-1} = a\}
 $$
 
-````{prf:definition} Markov Property
-:label: markov-property
-
 The state $s_t$ is Markov if and only if:
 
-```{math}
-\Pr\{S_{t+1} = s_{t+1}, R_{t+1} = r_{t+1} | S_t = s_t, A_t = a_t, S_{t-1} = s_{t-1}, A_{t-1} = a_{t-1}, \ldots\} = \Pr\{S_{t+1} = s_{t+1}, R_{t+1} = r_{t+1} | S_t = s_t, A_t = a_t\}
-````
+$$
+\Pr\{S_{t+1} = s_{t+1}, R_{t+1} = r_{t+1} | S_t = s_t, A_t = a_t\}\\
+= \Pr\{S_{t+1} = s_{t+1}, R_{t+1} = r_{t+1} | S_t = s_t, A_t = a_t, S_{t-1} = s_{t-1}, A_{t-1} = a_{t-1}, \ldots\}
+$$
+
+<!-- 
+\Pr\{S_{t+1} = s_{t+1}, R_{t+1} = r_{t+1} | S_t = s_t, A_t = a_t, S_{t-1} = s_{t-1}, A_{t-1} = a_{t-1}, \ldots\} = \Pr\{S_{t+1} = s_{t+1}, R_{t+1} = r_{t+1} | S_t = s_t, A_t = a_t\} -->
 
 <!-- The state has the _Markov property_ if the state includes all relevant information from the interaction history that may affect the future. -->
 
