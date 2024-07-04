@@ -246,8 +246,10 @@ def lp_solver(r, p, gamma):
 
     # set objective
     model.setObjective(
-        quicksum(model.getVarByName(f"v_{state}") for state in state_set), GRB.MINIMIZE
-    )
+        quicksum(
+            model.getVarByName(f"v_{state}") for state in state_set), 
+            GRB.MINIMIZE
+            )
 
     # optimize
     model.optimize()
@@ -271,7 +273,7 @@ action_set = set(range(n_action))
 terminal_state_set = [47]
 unreachable_state_set = [37, 38, 39, 40, 41, 42, 43, 44, 45, 46]
 # the reachable state set is the set of all states except the cliff and the goal.
-# only the states in the reachable state set are considered in the optimization problem
+# only the states in the reachable state set are considered.
 reachable_state_set = set(
     set(state_set) - set(terminal_state_set) - set(unreachable_state_set)
 )
