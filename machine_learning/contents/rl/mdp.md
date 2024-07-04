@@ -271,7 +271,7 @@ state_set = set(range(n_state))
 action_set = set(range(n_action))
 # The player cannot be at the cliff, nor at the goal
 terminal_state_set = [47]
-unreachable_state_set = [37, 38, 39, 40, 41, 42, 43, 44, 45, 46]
+unreachable_state_set = list(range(37, 47))
 # the reachable state set is the set of all states except the cliff and the goal.
 # only the states in the reachable state set are considered.
 reachable_state_set = set(
