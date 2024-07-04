@@ -176,7 +176,7 @@ $$
 The Bellman optimality equation can be solved using linear programming. This is a less frequently used method for solving MDP. The ideas are as follows
 
 * If $v(s) \geq r(s, a) + \gamma \sum_{s'} p(s' | s, a) v(s')$ for all $s \in S$ and $a \in A$, then $v(s)$ is an upper bound on $v_*(s)$.
-* $v_*(s)$ must be the smallest such solution
+* $v_*(s)$ must be the smallest such solution satisfying the Bellman optimality equation.
 
 The linear programming formulation of the Bellman optimality equation is as follows:
 
