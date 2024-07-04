@@ -213,6 +213,7 @@ The goal is to find the optimal policy for moving an agent from a starting posit
 
 from gurobipy import GRB, Model, quicksum
 
+
 def lp_solver(r, p, gamma):
 
     action_set = set(range(r.shape[1]))
@@ -224,20 +225,29 @@ def lp_solver(r, p, gamma):
 
     # create variables
     for s in range(n_state):
-        model.addVar(name=f'v_{s}', lb=-GRB.INFINITY)
-    
+        model.addVar(name=f"v_{s}", lb=-GRB.INFINITY)
+
     # update the model
     model.update()
 
     # create constraints
     for state in state_set:
         for action in action_set:
-            model.addConstr(model.getVarByName(f'v_{state}') >= quicksum(
-                gamma * p[state, action, next_state] * model.getVarByName(f'v_{next_state}') for next_state in state_set ) + r[state, action])
+            model.addConstr(
+                model.getVarByName(f"v_{state}")
+                >= quicksum(
+                    gamma
+                    * p[state, action, next_state]
+                    * model.getVarByName(f"v_{next_state}")
+                    for next_state in state_set
+                )
+                + r[state, action]
+            )
 
     # set objective
-    model.setObjective(quicksum(model.getVarByName(
-        f'v_{state}') for state in state_set ), GRB.MINIMIZE)
+    model.setObjective(
+        quicksum(model.getVarByName(f"v_{state}") for state in state_set), GRB.MINIMIZE
+    )
 
     # optimize
     model.optimize()
@@ -252,17 +262,19 @@ import numpy as np
 from lp_solver import lp_solver
 
 # create an environment
-env = gym.make('CliffWalking-v0')
+env = gym.make("CliffWalking-v0")
 n_state = env.unwrapped.nS
 n_action = env.unwrapped.nA
 state_set = set(range(n_state))
 action_set = set(range(n_action))
-# The player cannot be at the cliff, nor at the goal 
-terminal_state_set = [47] 
+# The player cannot be at the cliff, nor at the goal
+terminal_state_set = [47]
 unreachable_state_set = [37, 38, 39, 40, 41, 42, 43, 44, 45, 46]
 # the reachable state set is the set of all states except the cliff and the goal.
 # only the states in the reachable state set are considered in the optimization problem
-reachable_state_set = set(set(state_set) - set(terminal_state_set) - set(unreachable_state_set))
+reachable_state_set = set(
+    set(state_set) - set(terminal_state_set) - set(unreachable_state_set)
+)
 
 # set parameters
 gamma = 1
@@ -283,39 +295,45 @@ model = lp_solver(r, p, gamma)
 # state value
 value_function = {}
 for state in reachable_state_set:
-    value_function[state] = model.getVarByName(f'v_{state}').x
+    value_function[state] = model.getVarByName(f"v_{state}").x
 
 policy = {}
 for state in terminal_state_set:
     value_function[47] = 0
-    
+
 for state in reachable_state_set:
     q_max_value = -np.inf
     for action in action_set:
-        q_value_temp = sum([prob * (reward + gamma * value_function[next_state])
-                            for prob, next_state, reward, terminated in env.unwrapped.P[state][action]])
+        q_value_temp = sum(
+            [
+                prob * (reward + gamma * value_function[next_state])
+                for prob, next_state, reward, terminated in env.unwrapped.P[state][
+                    action
+                ]
+            ]
+        )
         if q_value_temp > q_max_value:
             q_max_value = q_value_temp
             policy[state] = action
-        
+
 # print value function 4*12, 1 digital after decimal point
 
-print('value function = ')
+print("value function = ")
 for i in range(4):
     for j in range(12):
         if i * 12 + j in value_function:
-            print('{:.1f}'.format(value_function[i * 12 + j]), end='\t')
+            print("{:.1f}".format(value_function[i * 12 + j]), end="\t")
         else:
-            print('x', end='\t')
+            print("x", end="\t")
     print()
 
-print('optimal policy = ')
+print("optimal policy = ")
 for i in range(4):
     for j in range(12):
         if i * 12 + j in policy:
-            print(policy[i * 12 + j], end='\t')
+            print(policy[i * 12 + j], end="\t")
         else:
-            print('x', end='\t')
+            print("x", end="\t")
     print()
 
 model.write("model.lp")
