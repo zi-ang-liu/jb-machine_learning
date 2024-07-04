@@ -1,6 +1,6 @@
 # Markov Decision Processes
 
-The multi-armed bandit problem is nonassociative. It only involves learning to act in one situation. Consider the newsvendor problem. The number of newspapers in the morning is always 0, regardless of the previous day's orders and sales. However, many real-world problems are associative. Therefore, we need to learn to choose different actions in different situations.
+<!-- The multi-armed bandit problem is nonassociative. It only involves learning to act in one situation. Consider the newsvendor problem. The number of newspapers in the morning is always 0, regardless of the previous day's orders and sales. However, many real-world problems are associative. Therefore, we need to learn to choose different actions in different situations. -->
 
 Markov decision processes (MDPs) are associative problems in which the action taken in the current period affects the future states and rewards. MDPs are idealized models of reinforcement learning problems. In MDPs, complete knowledge of the environment is available.
 
