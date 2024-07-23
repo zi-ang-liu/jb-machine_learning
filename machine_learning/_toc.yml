@@ -11,6 +11,10 @@ parts:
     - file: contents/rl/dp
     - file: contents/rl/td
 
+  - caption: Explainable AI
+    chapters:
+    - file: contents/xai/lime
+
   - caption: Large Language Models
     chapters:
     - file: contents/llm/langchain
