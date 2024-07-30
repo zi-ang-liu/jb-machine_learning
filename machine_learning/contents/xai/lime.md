@@ -60,5 +60,6 @@ $$
 ```
 
 ## References
-```{references}
+```{bibliography}
+:style: unsrt
 ```
