@@ -49,7 +49,7 @@ $$
 ```{prf:algorithm} Sparse Linear Explanations using LIME
 :label: sle-lime
 
-**Input**: Classifier $f$, Number of samples $N$, Instance $x$ and it's interpretable version$x'$, Similarity kernel $\pi_x$, Length of explanation $K$
+**Input**: Classifier $f$, Number of samples $N$, Instance $x$ and it's interpretable version$x'$, Similarity kernel $\pi_x$, Length of explanation $K$   
 **Output**: $w$
 
 1. $\mathcal{Z} \leftarrow \emptyset$
