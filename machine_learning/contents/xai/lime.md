@@ -30,7 +30,7 @@ $$
 
 The intuition of $\mathcal{L}$ is that the data points $z_i$ that are closer to the instance $x$ should have more weight in the loss function.
 
-$\Omega(g)$ is the complexity measure. In the original paper, it can be defined as follows:
+$\Omega(g)$ is the complexity measure. In the original paper, for text classification, it can be defined as follows:
 
 $$
 \Omega(g) = \infty \mathbb{1} [ \|w_g\|_0 > K ]
@@ -43,3 +43,21 @@ Let $\mathbf{x}$ represent a vector. Then $\|\mathbf{x}\|_0$ is:
 $$
 \|\mathbf{x}\|_0 = \sum_{i=1}^{N} \mathbb{1}[x_i \neq 0]
 $$
+
+## Algorithm
+
+```{prf:algorithm} Sparse Linear Explanations using LIME
+:label: sle-lime
+
+**Input**: Classifier $f$, Number of samples $N$, Instance $x$ and it's interpretable version$x'$, Similarity kernel $\pi_x$, Length of explanation $K$
+**Output**: $w$
+
+1. $\mathcal{Z} \leftarrow \emptyset$
+2. **For** $i = 1$ to $N$
+    1. $z'_i \leftarrow \text{sample}(x')$
+    2. $\mathcal{Z} \leftarrow \mathcal{Z} \cup (z_i, f(z_i), \pi_x(z_i))$
+3. $w \leftarrow \text{K-LASSO}(\mathcal{Z}, K)$ 
+```
+
+## References
+```{bibliography}
