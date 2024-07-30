@@ -9,7 +9,7 @@ The multi-armed bandit problem is a classic problem in which a decision-maker ch
 width: 400px
 name: bandits_violin_plot
 ---
-Agent-Environment Interface
+Violin plot for 10-armed bandits
 ```
 
 ```python
@@ -200,11 +200,11 @@ Note that the classic newsvendor problem assumes that the demand distribution is
 
 In here, we assume that the demand distribution is unknown, and we can only observe the demand after ordering the newspaper. The objective is to minimize the cost over some time period. By considering the discrete order quantity as actions, we can model the newsvendor problem as a multi-armed bandit problem.
 
-| Symbol  | Description                   |
-| ------- | ----------------------------- |
-| $D_t$ | Demand at time $t$          |
-| $h$   | Holding cost (overage cost)   |
-| $p$   | Stockout cost (underage cost) |
+| Symbol | Description                   |
+| ------ | ----------------------------- |
+| $D_t$  | Demand at time $t$            |
+| $h$    | Holding cost (overage cost)   |
+| $p$    | Stockout cost (underage cost) |
 
 In the following code, we solve an instance of the newsvendor problem using the simple bandit algorithm. In this example, $h = 0.18$, $p = 0.7$, and $D \sim \mathcal{N}(5, 1)$, where $D$ is discretized to the nearest integer.
 

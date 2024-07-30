@@ -29,3 +29,9 @@ $$
 $$
 
 The intuition of $\mathcal{L}$ is that the data points $z_i$ that are closer to the instance $x$ should have more weight in the loss function.
+
+$\Omega(g)$ is the complexity measure. In the original paper, it can be defined as follows:
+
+$$
+\Omega(g) = \inf \mathbb{1}
+$$
