@@ -33,5 +33,13 @@ The intuition of $\mathcal{L}$ is that the data points $z_i$ that are closer to 
 $\Omega(g)$ is the complexity measure. In the original paper, it can be defined as follows:
 
 $$
-\Omega(g) = \inf \mathbb{1}
+\Omega(g) = \infty \mathbb{1} [ \|w_g\|_0 > K ]
+$$
+
+where $w_g$ is the weight vector of the interpretable model $g$ and $K$ is the maximum number of non-zero weights. $\|w_g\|_0$ is the number of non-zero weights in the weight vector $w_g$. The complexity measure $\Omega(g)$ is the number of non-zero weights in the weight vector $w_g$.
+
+Let $\mathbf{x}$ represent a vector. Then $\|\mathbf{x}\|_0$ is:
+
+$$
+\|\mathbf{x}\|_0 = \sum_{i=1}^{N} \mathbb{1}[x_i \neq 0]
 $$
