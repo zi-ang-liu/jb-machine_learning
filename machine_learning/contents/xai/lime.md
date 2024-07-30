@@ -60,4 +60,5 @@ $$
 ```
 
 ## References
-```{bibliography}
+```{references}
+```
