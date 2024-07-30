@@ -16,10 +16,16 @@ $$
 \xi(x) = \arg\min_{g \in G}\;\;\mathcal{L}(f, g, \pi_x) + \Omega(g)
 $$
 
-$\pi_x$ is the proximity measure that measures the similarity between the instance $x$ and the samples $z$ in the neighborhood. The proximity measure is defined as follows:
+$\pi_x$ is the proximity measure that measures the similarity between the instance $x$ and the samples $z$ in the neighborhood. The proximity measure can be calculated as follows:
 
 $$
 \pi_x(z) = \exp(-\frac{D(x, z)^2}{\sigma^2})
+$$
+
+A simple choice for the similarity kernel $\pi_x$ is the Gaussian kernel. $D(x, z)$ is the distance between the instance $x$ and the sample $z$. $\sigma$ is the bandwidth parameter that controls the width of the Gaussian kernel. The smaller the value of $\sigma$, the more importance is given to the samples that are closer to the instance $x$.
+
+$$
+\pi_x(z) = \exp(-\frac{\|x - z\|^2}{2\sigma^2})
 $$
 
 $\mathcal{L}$ is the weighted least squares loss function. The fidelity measure is defined as follows:
