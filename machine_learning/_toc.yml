@@ -10,6 +10,7 @@ parts:
     - file: contents/rl/mdp
     - file: contents/rl/dp
     - file: contents/rl/td
+    - file: contents/rl/dqn
 
   - caption: Explainable AI
     chapters:
