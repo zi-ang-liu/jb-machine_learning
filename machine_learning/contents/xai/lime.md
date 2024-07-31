@@ -1,6 +1,6 @@
 # Local Interpretable Model-agnostic Explanations (LIME)
 
-LIME is a model-agnostic method for explaining the predictions of machine learning models {cite:p}`pRibeiro2016-vc`.
+LIME is a model-agnostic method for explaining the predictions of machine learning models {cite:p}`Ribeiro2016-vc`.
 
 ## Notation
 * $f$ is the model to be explained
