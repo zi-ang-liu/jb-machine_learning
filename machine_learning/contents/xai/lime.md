@@ -65,7 +65,7 @@ $$
 3. $w \leftarrow \text{K-LASSO}(\mathcal{Z}, K)$ 
 ```
 
-## References
+<!-- ## References -->
 ```{bibliography}
 :style: unsrt
 ```
