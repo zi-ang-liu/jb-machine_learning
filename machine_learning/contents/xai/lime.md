@@ -67,5 +67,4 @@ $$
 
 <!-- ## References -->
 ```{bibliography}
-:style: unsrt
 ```
