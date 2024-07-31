@@ -1,42 +1,13 @@
-from gurobipy import GRB, Model, quicksum
+import torch.nn as nn
+import torch.nn.functional as F
 
 
-def lp_solver(r, p, gamma):
+class DQN(nn.Module):
+    def __init__(self, n_observations, n_actions):
+        super(DQN, self).__init__()
+        self.fc1 = nn.Linear(n_observations, 128)
+        self.fc2 = nn.Linear(128, 128)
+        self.fc3 = nn.Linear(128, n_actions)
 
-    action_set = set(range(r.shape[1]))
-    state_set = set(range(r.shape[0]))
-    n_state = len(state_set)
-
-    # create a model instance
-    model = Model()
-
-    # create variables
-    for s in range(n_state):
-        model.addVar(name=f"v_{s}", lb=-GRB.INFINITY)
-
-    # update the model
-    model.update()
-
-    # create constraints
-    for state in state_set:
-        for action in action_set:
-            model.addConstr(
-                model.getVarByName(f"v_{state}")
-                >= quicksum(
-                    gamma
-                    * p[state, action, next_state]
-                    * model.getVarByName(f"v_{next_state}")
-                    for next_state in state_set
-                )
-                + r[state, action]
-            )
-
-    # set objective
-    model.setObjective(
-        quicksum(model.getVarByName(f"v_{state}") for state in state_set), GRB.MINIMIZE
-    )
-
-    # optimize
-    model.optimize()
-
-    return model
+    def forward(self, x):
+        

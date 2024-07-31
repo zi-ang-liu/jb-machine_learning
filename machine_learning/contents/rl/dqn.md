@@ -29,3 +29,8 @@
         9. **if** $t \mod C = 0$ **then**
             1. Reset $\hat{Q} \leftarrow Q$
 ```
+
+## Python Implementation
+
+```python
+```
