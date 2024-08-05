@@ -15,3 +15,8 @@ CREATE DATABASE db_name;
 ```sql
 CREATE DATABASE test_db;
 ```
+
+```{note} aaa
+SQLの基本ルール
+- 文末にはセミコロン`;`を付ける
+```
