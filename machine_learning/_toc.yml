@@ -22,4 +22,4 @@ parts:
 
   - caption: リレーショナル・データベース
     chapters:
-    - file: contents/db/mysql_intall.md
+    - file: contents/db/mysql_install.md
