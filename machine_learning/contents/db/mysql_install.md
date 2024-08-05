@@ -31,22 +31,23 @@ uname -m
 
 1. [こちら](https://dev.mysql.com/downloads/)のページからMySQL Shellにアクセスします。
 2. CPUアーキテクチャに合わせてDMGファイルをダウンロードします。
-3. `No thanks, just start my download.`をクリックします。
-4. ダウンロードファイルを実行し、インストールを開始します。
-
-### Visual Studio Codeのインストール
-
-
-### Extensionのインストール
-
-1. `MySQL Shell`を検索し、`MySQL Shell for VS Code`をインストールします。
-2. `Next`をクリックします。
-3. `Reload VS Code Window`をクリックします。
-
-
+3. "No thanks, just start my download."をクリックします。
+4. ダウンロードしたDMGファイルを実行し、インストールを開始します。
 
 ## Windows
 
-## DB Connection
+## Visual Studio Codeのインストール
 
-1. 
+1. [こちら](https://code.visualstudio.com/)のページからVisual Studio Codeにアクセスします。
+2. "Download for Mac"または"Download for Windows"をクリックします。
+3. ダウンロードしたファイルを実行し、インストールを開始します。
+
+## MySQL Shell for VS Codeのインストール
+
+1. Visual Studio Codeを開きます。
+2. Extensionsを開きます。
+   - Mac: `Command + Shift + X`
+   - Windows: `Ctrl + Shift + X`
+3. "MySQL Shell for VS Code"を検索し、インストールします。
+
+## DB Connection
