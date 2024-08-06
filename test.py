@@ -46,6 +46,7 @@ if __name__ == "__main__":
 
     # Parameters
     n_buffer_capacity = 10000
+    batch_size = 32
     device = "cuda" if torch.cuda.is_available() else "cpu"
     learning_rate = 0.001
     n_episodes = 1000
@@ -74,3 +75,16 @@ if __name__ == "__main__":
             else:
                 with torch.no_grad():
                     action = dqn(state).argmax().item()
+
+            # Take action
+            next_state, reward, done, info = env.step(action)
+            next_state = torch.tensor(next_state, dtype=torch.float32).to(device)
+
+            # Save transition
+            memory.push(state, action, next_state, reward)
+
+            # Sample a batch of transitions
+            Transitions = memory.sample(batch_size)
+            batch = Transition(*zip(*Transitions))
+
+            # Compute Q-values
