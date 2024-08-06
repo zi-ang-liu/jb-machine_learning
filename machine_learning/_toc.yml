@@ -19,8 +19,3 @@ parts:
   - caption: Large Language Models
     chapters:
     - file: contents/llm/langchain
-
-  - caption: リレーショナル・データベース
-    chapters:
-    - file: contents/db/mysql_install.md
-    - file: contents/db/data_definition_language.md
