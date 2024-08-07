@@ -56,11 +56,6 @@ class DQN(nn.Module):
         return self.fc3(x)
 
 
-Transition = namedtuple(
-    "Transition", ("state", "action", "reward", "next_state", "done")
-)
-
-
 class ReplayMemory(object):
 
     def __init__(self, capacity):
@@ -78,6 +73,10 @@ class ReplayMemory(object):
 
 
 if __name__ == "__main__":
+
+    Transition = namedtuple(
+        "Transition", ("state", "action", "reward", "next_state", "done")
+    )
 
     # env
     env = gym.make("CartPole-v1")
@@ -212,5 +211,4 @@ if __name__ == "__main__":
             state = next_state
 
         print(f"Run {run}: {sum(reward_record)}")
-
 ```
