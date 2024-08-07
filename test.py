@@ -51,8 +51,8 @@ if __name__ == "__main__":
     n_buffer_capacity = 10000
     batch_size = 128
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    learning_rate = 0.001
-    n_episodes = 1000
+    learning_rate = 1e-4
+    n_episodes = 5000
     epsilon = 0.1
     gamma = 0.99
     update_target = 10
