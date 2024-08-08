@@ -86,7 +86,7 @@ if __name__ == "__main__":
     batch_size = 128
     device = "cuda" if torch.cuda.is_available() else "cpu"
     learning_rate = 1e-4
-    n_episodes = 5000
+    n_episodes = 1000
     epsilon = 0.1
     gamma = 0.99
     update_target = 10
@@ -168,14 +168,15 @@ if __name__ == "__main__":
                 batch_done = torch.Tensor(batch_done).to(device)
 
                 # Compute Q-values
-                q_values = dqn(batch_state)
-                q_values = q_values.gather(1, batch_action.unsqueeze(1)).squeeze(1)
+                q_values = (
+                    dqn(batch_state).gather(1, batch_action.unsqueeze(1)).squeeze(1)
+                )
 
                 # Compute target Q-values
                 with torch.no_grad():
-                    q_values_target = dqn_target(batch_next_state)
-                    q_values_target = torch.max(q_values_target, dim=1).values
-                    target = batch_reward + gamma * q_values_target * (1 - batch_done)
+                    target = batch_reward + gamma * torch.max(
+                        dqn_target(batch_next_state), dim=1
+                    ).values * (1 - batch_done)
 
                 # Compute loss
                 loss = F.mse_loss(q_values, target)
@@ -211,4 +212,5 @@ if __name__ == "__main__":
             state = next_state
 
         print(f"Run {run}: {sum(reward_record)}")
+
 ```
