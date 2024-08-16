@@ -5,12 +5,12 @@
 ```{prf:algorithm} Federated Averaging
 :label: federated-averaging
 
-**Input**: $K$ clients, the number of local epochs $E$, the learning rate $\alpha$, the batch size $B$, fraction $C$ of clients to sample 
+**Input**: $K$ clients, the number of local epochs $E$, the learning rate $\alpha$, the batch size $B$, fraction $C$ of clients to sample, and the number of communication rounds $T$    
 **Output**: output a global model $w$
 
 **Server executes:**   
 1. Initialize global model $w_0$
-2. **for** each round $t = 1, 2, \dot$ **do**
+2. **for** each round $t = 1, 2, \dots, T$ **do**
     1. $m \leftarrow \max(C \cdot K, 1)$
     2. $S_t \leftarrow$ (random set of $m$ clients)
     3. **for** each client $k \in S_t$ **do**
