@@ -1,5 +1,9 @@
 # The FederatedAveraging Algorithm
 
+## The $\texttt{FederatedSGD}$ Algorithm
+
+
+
 ## Algorithm
 
 ```{prf:algorithm} Federated Averaging
