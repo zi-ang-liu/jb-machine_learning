@@ -16,6 +16,11 @@ parts:
     chapters:
     - file: contents/xai/lime
 
+  - caption: Federated Learning
+    chapters:
+    - file: contents/fl/intro
+    - file: contents/fl/fedavg
+
   - caption: Large Language Models
     chapters:
     - file: contents/llm/langchain
