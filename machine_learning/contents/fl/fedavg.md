@@ -2,9 +2,24 @@
 
 ## The $\texttt{FederatedSGD}$ Algorithm
 
+$$
+w^k_{t+1} \leftarrow w_t - \alpha \nabla \ell(w_t; \mathcal{D}_k)
+$$
+
+$$
+w_{t+1} \leftarrow \sum_{k=1}^{K} \frac{n_k}{n} w^k_{t+1}
+$$
+
+$$
+n_k = |\mathcal{D}_k|
+$$
+
+$$
+n = \sum_{k=1}^{K} n_k
+$$
 
 
-## Algorithm
+## The $\texttt{FederatedAveraging}$ Algorithm
 
 ```{prf:algorithm} Federated Averaging
 :label: federated-averaging
