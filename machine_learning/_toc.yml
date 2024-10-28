@@ -4,6 +4,10 @@
 format: jb-book
 root: intro
 parts:
+  - caption: Supervised Learning
+    chapters:
+    - file: contents/supervised_learning/perceptron
+
   - caption: Reinforcement Learning
     chapters:
     - file: contents/rl/mab
