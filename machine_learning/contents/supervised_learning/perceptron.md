@@ -37,7 +37,7 @@ The learning algorithm can be summarized as follows:
 2. **For** $t = 1$ to $T$
     1. **For** $i = 1$ to $n$
         1. Compute the prediction $f(\mathbf{x}_i) = h(\mathbf{w} \cdot \mathbf{x}_i + b)$
-        2. **If** $y_i \neq f(\mathbf{x}_i)$
+        2. **If** $y_i f(\mathbf{x}_i) \leq 0$
             1. Update the weight vector $\mathbf{w} \leftarrow \mathbf{w} + \eta y_i \mathbf{x}_i$
             2. Update the bias $b \leftarrow b + \eta y_i$
 **Return** $\mathbf{w}$ and $b$
@@ -71,7 +71,9 @@ b &\leftarrow b + \eta \nabla_{b} \mathcal{L}(\mathbf{w}, b)
 \end{align*}
 $$
 
-When $-y_i (\mathbf{w} \cdot \mathbf{x}_i + b) > 0$, the gradient of the hinge loss for sample $(\mathbf{x}_i, y_i)$ with respect to the weight vector $\mathbf{w}$ and the bias $b$ is:
+If $-y_i (\mathbf{w} \cdot \mathbf{x}_i + b) \leq 0$, the gradient of the hinge loss is zero.
+
+If $-y_i (\mathbf{w} \cdot \mathbf{x}_i + b) > 0$, the gradient of the hinge loss for sample $(\mathbf{x}_i, y_i)$ with respect to the weight vector $\mathbf{w}$ and the bias $b$ is:
 
 $$
 \begin{align*}
@@ -88,3 +90,5 @@ $$
 b &\leftarrow b + \eta y_i
 \end{align*}
 $$
+
+## Python Implementation
