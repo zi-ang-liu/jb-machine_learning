@@ -35,23 +35,6 @@ The weight vector $\mathbf{w}$ and the bias $b$ are learned from the training da
 3. **Return** $\mathbf{w}$ and $b$
 ```
 
-```{prf:algorithm} Policy Evaluation for estimating $V \approx v_{\pi}$
-:label: policy-evaluation
-
-**Input**: $\theta, \pi$
-
-**Output**: $V \approx v_{\pi}$
-
-1. Initialize $V(s)$ arbitrarily, for all $s \in \mathcal{S}$
-2. $\Delta \leftarrow 2\theta$
-3. **while** $\Delta \geq \theta$ **do**
-    1. $\Delta \leftarrow 0$
-    2. **for** $s \in \mathcal{S}$ **do**
-        1. $v \leftarrow V(s)$
-        2. $V(s) \leftarrow \sum_{a} \pi(a|s) \sum_{s', r} p(s', r|s, a)[r + \gamma V(s')]$
-        3. $\Delta \leftarrow \max(\Delta, |v - V(s)|)$
-```
-
 In the perceptron learning algorithm, the weight vector $\mathbf{w}$ and the bias $b$ are updated iteratively for each training example $(\mathbf{x}_i, y_i)$ in the training data $\mathcal{D}$. The learning rate $\eta$ controls the step size of the updates. The algorithm continues for a fixed number of epochs $T$ or until convergence.
 
 The update rule for the weight vector $\mathbf{w}$ and the bias $b$ is derived from the perceptron criterion, which aims to minimize the mean squared error (MSE) loss function:
