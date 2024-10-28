@@ -38,9 +38,9 @@ The learning algorithm can be summarized as follows:
     1. **For** $i = 1$ to $n$
         1. Compute the prediction $f(\mathbf{x}_i) = h(\mathbf{w} \cdot \mathbf{x}_i + b)$
         2. **If** $y_i \neq f(\mathbf{x}_i)$
-            1. Update the weight vector $\mathbf{w} \leftarrow \mathbf{w} + \eta (y_i - f(\mathbf{x}_i)) \mathbf{x}_i$
-            2. Update the bias $b \leftarrow b + \eta (y_i - f(\mathbf{x}_i))$
-3. **Return** $\mathbf{w}$ and $b$
+            1. Update the weight vector $\mathbf{w} \leftarrow \mathbf{w} + \eta y_i \mathbf{x}_i$
+            2. Update the bias $b \leftarrow b + \eta y_i$
+**Return** $\mathbf{w}$ and $b$
 ```
 
 In the perceptron learning algorithm, the weight vector $\mathbf{w}$ and the bias $b$ are updated iteratively for each training example $(\mathbf{x}_i, y_i)$ in the training data $\mathcal{D}$. The learning rate $\eta$ controls the step size of the updates. The algorithm continues for a fixed number of epochs $T$ or until convergence.
@@ -49,8 +49,8 @@ The update rule for the weight vector $\mathbf{w}$ and the bias $b$ is as follow
 
 $$
 \begin{align*}
-\mathbf{w} &\leftarrow \mathbf{w} + \eta (y_i - f(\mathbf{x}_i)) \mathbf{x}_i \\
-b &\leftarrow b + \eta (y_i - f(\mathbf{x}_i))
+\mathbf{w} &\leftarrow \mathbf{w} + \eta y_i \mathbf{x}_i \\
+b &\leftarrow b + \eta y_i
 \end{align*}
 $$
 
@@ -71,11 +71,20 @@ b &\leftarrow b + \eta \nabla_{b} \mathcal{L}(\mathbf{w}, b)
 \end{align*}
 $$
 
-When $-y_i (\mathbf{w} \cdot \mathbf{x}_i + b) > 0$, the gradient of the hinge loss can be computed as follows:
+When $-y_i (\mathbf{w} \cdot \mathbf{x}_i + b) > 0$, the gradient of the hinge loss for sample $(\mathbf{x}_i, y_i)$ with respect to the weight vector $\mathbf{w}$ and the bias $b$ is:
 
 $$
 \begin{align*}
 \nabla_{\mathbf{w}} \mathcal{L}(\mathbf{w}, b) &= -y_i \mathbf{x}_i \\
 \nabla_{b} \mathcal{L}(\mathbf{w}, b) &= -y_i
+\end{align*}
+$$
+
+Substituting the gradients into the update rule, we get:
+
+$$
+\begin{align*}
+\mathbf{w} &\leftarrow \mathbf{w} + \eta y_i \mathbf{x}_i \\
+b &\leftarrow b + \eta y_i
 \end{align*}
 $$
