@@ -37,11 +37,20 @@ The weight vector $\mathbf{w}$ and the bias $b$ are learned from the training da
 
 In the perceptron learning algorithm, the weight vector $\mathbf{w}$ and the bias $b$ are updated iteratively for each training example $(\mathbf{x}_i, y_i)$ in the training data $\mathcal{D}$. The learning rate $\eta$ controls the step size of the updates. The algorithm continues for a fixed number of epochs $T$ or until convergence.
 
-The update rule for the weight vector $\mathbf{w}$ and the bias $b$ is derived from the perceptron criterion, which aims to minimize the mean squared error (MSE) loss function:
+When the training data is linearly separable, the perceptron learning algorithm is guaranteed to converge and find a separating hyperplane that correctly classifies all training examples. That is, the perceptron will find a weight vector $\mathbf{w}$ and a bias $b$ such that $f(\mathbf{x}_i) = y_i$ for all training examples $(\mathbf{x}_i, y_i) \in \mathcal{D}$.
+
+Therefore, the objective of the perceptron learning algorithm is to find a weight vector $\mathbf{w}$ and a bias $b$ that minimize $(y_i - f(\mathbf{x}_i))^2$ for all training examples $(\mathbf{x}_i, y_i) \in \mathcal{D}$. This can be achieved by minimizing the following loss function:
 
 $$
-\min \sum_{i=1}^{n} (y_i - f(\mathbf{x}_i))^2
+L(\mathbf{w}, b) = \sum_{i=1}^{n} (y_i - f(\mathbf{x}_i))^2
 $$
 
+The loss function $L(\mathbf{w}, b)$ can be minimized using gradient descent or stochastic gradient descent. The gradient of the loss function with respect to the weight vector $\mathbf{w}$ and the bias $b$ can be computed as follows:
 
+$$
+\frac{\partial L}{\partial \mathbf{w}} = -2 \sum_{i=1}^{n} (y_i - f(\mathbf{x}_i)) \mathbf{x}_i
+$$
 
+$$
+\frac{\partial L}{\partial b} = -2 \sum_{i=1}^{n} (y_i - f(\mathbf{x}_i))
+$$
