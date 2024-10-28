@@ -19,10 +19,11 @@ $$
 
 The weight vector $\mathbf{w}$ and the bias $b$ are learned from the training data using the perceptron learning algorithm. The learning algorithm can be summarized as follows:
 
-```{algorithm} Perceptron Learning Algorithm
+```{prf:algorithm} Perceptron Learning Algorithm
 :label: perceptron-learning-algorithm
 
-**Input**: Training data $\mathcal{D} = \{(\mathbf{x}_1, y_1), (\mathbf{x}_2, y_2), \ldots, (\mathbf{x}_n, y_n)\}$, Learning rate $\eta$, Number of epochs $T$   
+**Input**: Training data $\mathcal{D} = \{(\mathbf{x}_1, y_1), (\mathbf{x}_2, y_2), \ldots, (\mathbf{x}_n, y_n)\}$, Learning rate $\eta$, Number of epochs $T$
+
 **Output**: Weight vector $\mathbf{w}$ and bias $b$
 
 1. Initialize $\mathbf{w} \leftarrow \mathbf{0}$ and $b \leftarrow 0$
