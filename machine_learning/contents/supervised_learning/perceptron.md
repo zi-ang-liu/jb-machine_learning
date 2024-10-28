@@ -1,8 +1,10 @@
 # Perceptron
 
+## Introduction
+
 Perceptron is an algorithm for supervised learning of binary classifiers. The idea of the perceptron was invented in 1943 by Warren McCulloch and Walter Pitts, and it was further developed by Frank Rosenblatt in 1957. 
 
-A perceptron represents a binary linear classifier that maps its input $\mathbf{x} \in \mathbb{R}^n$ to an output value $f(\mathbf{x}) \in \{0, 1\}$ by the following function:
+A perceptron represents a binary linear classifier that maps its input $\mathbf{x} \in \mathbb{R}^n$ to an output value $f(\mathbf{x}) \in \{-1, 1\}$. The perceptron can be represented as follows:
 
 $$
 f(\mathbf{x}) = h(\mathbf{w} \cdot \mathbf{x} + b)
@@ -18,9 +20,11 @@ h(z) =
 \end{cases}
 $$
 
-As a result, the output of the perceptron is binary, i.e., $f(\mathbf{x}) \in \{1, -1\}$. 
+The weight vector $\mathbf{w}$ and the bias $b$ are learned from the training data using the perceptron learning algorithm. 
 
-The weight vector $\mathbf{w}$ and the bias $b$ are learned from the training data using the perceptron learning algorithm. The learning algorithm can be summarized as follows:
+## Algorithm
+
+The learning algorithm can be summarized as follows:
 
 ```{prf:algorithm} Perceptron Learning Algorithm
 :label: perceptron-learning-algorithm
@@ -32,9 +36,10 @@ The weight vector $\mathbf{w}$ and the bias $b$ are learned from the training da
 1. Initialize $\mathbf{w} \leftarrow \mathbf{0}$ and $b \leftarrow 0$
 2. **For** $t = 1$ to $T$
     1. **For** $i = 1$ to $n$
-        1. Compute the predicted output $f(\mathbf{x}_i) = H(\mathbf{w} \cdot \mathbf{x}_i + b)$
-        2. $\mathbf{w} \leftarrow \mathbf{w} + \eta (y_i - f(\mathbf{x}_i)) \mathbf{x}_i$
-        3. $b \leftarrow b + \eta (y_i - f(\mathbf{x}_i))$
+        1. Compute the prediction $f(\mathbf{x}_i) = h(\mathbf{w} \cdot \mathbf{x}_i + b)$
+        2. **If** $y_i \neq f(\mathbf{x}_i)$
+            1. Update the weight vector $\mathbf{w} \leftarrow \mathbf{w} + \eta (y_i - f(\mathbf{x}_i)) \mathbf{x}_i$
+            2. Update the bias $b \leftarrow b + \eta (y_i - f(\mathbf{x}_i))$
 3. **Return** $\mathbf{w}$ and $b$
 ```
 
@@ -49,10 +54,28 @@ b &\leftarrow b + \eta (y_i - f(\mathbf{x}_i))
 \end{align*}
 $$
 
-The update rule is derived from the gradient descent algorithm. For each training example $(\mathbf{x}_i, y_i)$, the perceptron learning algorithm updates the weight vector $\mathbf{w}$ and the bias $b$ in the direction that reduces the error between the predicted output $f(\mathbf{x}_i)$ and the true output $y_i$. Therefore, the objective can be formulated as minimizing the following loss function:
+## Loss Function
+
+The loss function used in the perceptron learning algorithm is the hinge loss, which is defined as follows:
 
 $$
-\min (y_i - f(\mathbf{x}_i))^2
+\mathcal{L}(\mathbf{w}, b) = \sum_{i=1}^{n} \max(0, -y_i (\mathbf{w} \cdot \mathbf{x}_i + b))
 $$
 
-When the training data is linearly separable, the perceptron learning algorithm is guaranteed to converge and find a separating hyperplane that correctly classifies all training examples. That is, the perceptron will find a weight vector $\mathbf{w}$ and a bias $b$ such that $f(\mathbf{x}_i) = y_i$ for all training examples $(\mathbf{x}_i, y_i) \in \mathcal{D}$.
+The goal of the perceptron learning algorithm is to minimize the hinge loss by updating the weight vector $\mathbf{w}$ and the bias $b$. To achieve this, we use gradient descent to update the parameters in the direction that reduces the loss.
+
+$$
+\begin{align*}
+\mathbf{w} &\leftarrow \mathbf{w} + \eta \nabla_{\mathbf{w}} \mathcal{L}(\mathbf{w}, b) \\
+b &\leftarrow b + \eta \nabla_{b} \mathcal{L}(\mathbf{w}, b)
+\end{align*}
+$$
+
+When $-y_i (\mathbf{w} \cdot \mathbf{x}_i + b) > 0$, the gradient of the hinge loss can be computed as follows:
+
+$$
+\begin{align*}
+\nabla_{\mathbf{w}} \mathcal{L}(\mathbf{w}, b) &= -y_i \mathbf{x}_i \\
+\nabla_{b} \mathcal{L}(\mathbf{w}, b) &= -y_i
+\end{align*}
+$$
