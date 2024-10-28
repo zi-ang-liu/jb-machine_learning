@@ -92,3 +92,6 @@ b &\leftarrow b + \eta y_i
 $$
 
 ## Python Implementation
+
+```python
+import numpy as np
