@@ -25,7 +25,7 @@ The weight vector $\mathbf{w}$ and the bias $b$ are learned from the training da
 **Input**: Training data $\mathcal{D} = \{(\mathbf{x}_1, y_1), (\mathbf{x}_2, y_2), \ldots, (\mathbf{x}_n, y_n)\}$, Learning rate $\eta$, Number of epochs $T$   
 **Output**: Weight vector $\mathbf{w}$ and bias $b$
 
-1. Initialize the weight vector $\mathbf{w}$ and bias $b$ to zero or small random values
+1. Initialize $\mathbf{w} \leftarrow \mathbf{0}$ and $b \leftarrow 0$
 2. **For** $t = 1$ to $T$
     1. **For** $i = 1$ to $n$
         1. Compute the predicted output $f(\mathbf{x}_i) = H(\mathbf{w} \cdot \mathbf{x}_i + b)$
@@ -33,4 +33,14 @@ The weight vector $\mathbf{w}$ and the bias $b$ are learned from the training da
         3. $b \leftarrow b + \eta (y_i - f(\mathbf{x}_i))$
 3. **Return** $\mathbf{w}$ and $b$
 ```
+
+In the perceptron learning algorithm, the weight vector $\mathbf{w}$ and the bias $b$ are updated iteratively for each training example $(\mathbf{x}_i, y_i)$ in the training data $\mathcal{D}$. The learning rate $\eta$ controls the step size of the updates. The algorithm continues for a fixed number of epochs $T$ or until convergence.
+
+The update rule for the weight vector $\mathbf{w}$ and the bias $b$ is derived from the perceptron criterion, which aims to minimize the mean squared error (MSE) loss function:
+
+$$
+\min \sum_{i=1}^{n} (y_i - f(\mathbf{x}_i))^2
+$$
+
+
 
