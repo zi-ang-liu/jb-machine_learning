@@ -122,8 +122,7 @@ The perceptron learning algorithm is summarized in the following steps:
 ```{prf:algorithm} Perceptron Learning Algorithm
 :label: perceptron-learning-algorithm
 
-**Input**: Training data $\mathcal{D} = \{(\mathbf{x}_1, y_1), (\mathbf{x}_2, y_2), \ldots, (\mathbf{x}_n, y_n)\}$, Learning rate $\eta$, Number of epochs $T$
-
+**Input**: Training data $\mathcal{D} = \{(\mathbf{x}_1, y_1), (\mathbf{x}_2, y_2), \ldots, (\mathbf{x}_n, y_n)\}$, Learning rate $\eta$, Number of epochs $T$   
 **Output**: Weight vector $\mathbf{w}$
 
 1. Initialize $\mathbf{w} \leftarrow \mathbf{0}$ 
@@ -132,10 +131,7 @@ The perceptron learning algorithm is summarized in the following steps:
         1. Compute the prediction $f(\mathbf{x}_i) = h(\mathbf{w} \cdot \mathbf{x}_i)$
         2. **If** $y_i f(\mathbf{x}_i) \leq 0$
             1. Update the weight vector $\mathbf{w} \leftarrow \mathbf{w} + \eta y_i \mathbf{x}_i$
-    2. **End For**
-3. **End For**
-
-**Return** $\mathbf{w}$
+3. **Return** $\mathbf{w}$
 ```
 
 In the perceptron learning algorithm, the weight vector $\mathbf{w}$ and is updated iteratively for each training example $(\mathbf{x}_i, y_i)$ in the training data $\mathcal{D}$. The learning rate $\eta$ controls the step size of the updates. The algorithm continues for a fixed number of epochs $T$ or until convergence.
