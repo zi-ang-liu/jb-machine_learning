@@ -132,6 +132,9 @@ The perceptron learning algorithm is summarized in the following steps:
         1. Compute the prediction $f(\mathbf{x}_i) = h(\mathbf{w} \cdot \mathbf{x}_i)$
         2. **If** $y_i f(\mathbf{x}_i) \leq 0$
             1. Update the weight vector $\mathbf{w} \leftarrow \mathbf{w} + \eta y_i \mathbf{x}_i$
+    2. **End For**
+3. **End For**
+
 **Return** $\mathbf{w}$
 ```
 
