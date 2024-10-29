@@ -1,7 +1,3 @@
-"""
-Implementation of the Perceptron algorithm
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -28,8 +24,7 @@ class Perceptron:
         """
 
         # Initialize weights and bias
-        self.w = np.zeros(X.shape[1])
-        self.b = 0
+        self.w = np.zeros(1 + X.shape[1])
         self.errors = []
 
         # Train
@@ -38,14 +33,14 @@ class Perceptron:
             for xi, target in zip(X, y):
                 if self.predict(xi) != target:
                     update = self.learning_rate * target
-                    self.w += update * xi
-                    self.b += update
+                    self.w[1:] += update * xi
+                    self.w[0] += update
                     errors += int(update != 0.0)
             self.errors.append(errors)
         return self
 
     def net_input(self, X):
-        return np.dot(X, self.w) + self.b
+        return np.dot(X, self.w[1:]) + self.w[0]
 
     def predict(self, X):
         return np.where(self.net_input(X) >= 0.0, 1, -1)
@@ -82,8 +77,8 @@ ppn.fit(X, y)
 ppn.plot_errors()
 
 # plot decision boundary
-w = ppn.w
-b = ppn.b
+w = ppn.w[1:]
+b = ppn.w[0]
 
 plt.scatter(X[y == -1][:, 0], X[y == -1][:, 1], s=40, c="red", marker="o", label="0")
 plt.scatter(X[y == 1][:, 0], X[y == 1][:, 1], s=40, c="blue", marker="x", label="1")
