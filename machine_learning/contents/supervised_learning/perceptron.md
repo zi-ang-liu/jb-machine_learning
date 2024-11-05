@@ -102,22 +102,20 @@ This update rule is equivalent to the previous one. When $y^{(i)} = \hat{y}^{(i)
 In the implementation of the perceptron learning algorithm, by setting $x_0 = 1$ and $w_0 = b$, we can combine the bias $b$ with the weight vector $\mathbf{w}$ as follows:
 
 $$
-\mathbf{w} = [b, w_1, w_2, \ldots, w_n]
+\mathbf{w} = \begin{bmatrix} b \\ w_1 \\ w_2 \\ \vdots \\ w_n \end{bmatrix}
 $$
 
 and
 
 $$
-\mathbf{x} = [1, x_1, x_2, \ldots, x_n]
+\mathbf{x} = \begin{bmatrix} 1 \\ x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix}
 $$
 
 Note that $\mathbf{w} \in \mathbb{R}^{n+1}$ and $\mathbf{x} \in \mathbb{R}^{n+1}$. The perceptron can then be represented as:
 
 $$
-f(\mathbf{x}) = h(\mathbf{w} \cdot \mathbf{x})
+f(\mathbf{x}) = h(\mathbf{w}^\top \mathbf{x})
 $$
-
-where $\mathbf{w} \cdot \mathbf{x} = \sum_{i=0}^{n} w_i x_i$.
 
 Since we set $x_0 = 1$, the update rule can be simplified as follows:
 
