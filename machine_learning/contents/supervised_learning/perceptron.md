@@ -7,10 +7,10 @@ Perceptron is one of the oldest algorithm for supervised learning of binary clas
 A perceptron represents a binary linear classifier that maps its input $\mathbf{x} \in \mathbb{R}^d$ to an output value $f(\mathbf{x}) \in \{-1, 1\}$. The perceptron can be represented as follows:
 
 $$
-f(\mathbf{x}) = h(\mathbf{w} \cdot \mathbf{x} + b)
+f(\mathbf{x}) = h(\mathbf{w}^\top \mathbf{x} + b)
 $$
 
-where $\mathbf{w}$ is the weight vector, $\mathbf{w} \in \mathbb{R}^n$, $\mathbf{b}$ is the bias, and $h(\cdot)$ is defined as follows:
+where $\mathbf{w}$ is the weight vector, $\mathbf{w} \in \mathbb{R}^b$, $b$ is the bias, and $h(\cdot)$ is defined as follows:
 
 $$
 h(z) =
