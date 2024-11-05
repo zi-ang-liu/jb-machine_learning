@@ -134,8 +134,8 @@ The perceptron learning algorithm is summarized in the following steps:
 1. Initialize $\mathbf{w} \leftarrow \mathbf{0}$ 
 2. **For** $t = 1$ to $T$
     1. **For** $i = 1$ to $n$
-        1. Compute the prediction $f(\mathbf{x}^{(i)}) = h(\mathbf{w} \cdot \mathbf{x}^{(i)})$
-        2. **If** $y^{(i)} f(\mathbf{x}^{(i)}) \leq 0$
+        1. Compute the prediction $\hat{y}^{(i)} = h(\mathbf{w}^\top \mathbf{x}^{(i)})$
+        2. **If** $y^{(i)} \hat{y}^{(i)} \leq 0$
             1. Update the weight vector $\mathbf{w} \leftarrow \mathbf{w} + \eta y^{(i)} \mathbf{x}^{(i)}$
 3. **Return** $\mathbf{w}$
 ```
