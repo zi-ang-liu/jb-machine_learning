@@ -4,7 +4,7 @@
 
 Perceptron is one of the oldest algorithm for supervised learning of binary classifiers. The idea of the perceptron was invented in 1943 by Warren McCulloch and Walter Pitts, and it was further developed by Frank Rosenblatt in 1957. 
 
-A perceptron represents a binary linear classifier that maps its input $\mathbf{x} \in \mathbb{R}^n$ to an output value $f(\mathbf{x}) \in \{-1, 1\}$. The perceptron can be represented as follows:
+A perceptron represents a binary linear classifier that maps its input $\mathbf{x} \in \mathbb{R}^d$ to an output value $f(\mathbf{x}) \in \{-1, 1\}$. The perceptron can be represented as follows:
 
 $$
 f(\mathbf{x}) = h(\mathbf{w} \cdot \mathbf{x} + b)
@@ -23,6 +23,14 @@ $$
 By setting appropriate values for the weight vector $\mathbf{w}$ and the bias $b$, the perceptron can learn to classify the input data $\mathbf{x}$ into two classes, represented by the output values $-1$ and $1$.
 
 ## Loss Function
+
+Given a dataset $\mathcal{D} = \{(\mathbf{x^{(i)}}, y^{(i)})\}_{i=1}^{n}$, where $\mathbf{x^{(i)}}$ is the input and $y^{(i)}$ is the true label, the perceptron learning algorithm aims to learn the weight vector $\mathbf{w}$ and the bias $b$ that minimize the loss function.
+
+$\mathbf{x}^{(i)}$ is a vector with $d$ features:
+
+$$
+\mathbf{x}^{(i)} = \begin{bmatrix} x_1^{(i)} \\ x_2^{(i)} \\ \vdots \\ x_d^{(i)} \end{bmatrix}
+$$
 
 To simplify the illustration, we use $\hat{y}^{(i)} = f(\mathbf{x}^{(i)})$ to represent the prediction of the perceptron for the input $\mathbf{x}^{(i)}$. The true label of the input $\mathbf{x}^{(i)}$ is denoted as $y^{(i)}$. The perceptron makes a correct prediction if $\hat{y}^{(i)} = y^{(i)}$ and an incorrect prediction if $\hat{y}^{(i)} \neq y^{(i)}$.
 
