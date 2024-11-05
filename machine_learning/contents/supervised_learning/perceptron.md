@@ -111,7 +111,7 @@ $$
 \mathbf{x} = \begin{bmatrix} 1 \\ x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix}
 $$
 
-Note that $\mathbf{w} \in \mathbb{R}^{n+1}$ and $\mathbf{x} \in \mathbb{R}^{n+1}$. The perceptron can then be represented as:
+Note that $\mathbf{w} \in \mathbb{R}^{d+1}$ and $\mathbf{x} \in \mathbb{R}^{d+1}$. The perceptron can then be represented as:
 
 $$
 f(\mathbf{x}) = h(\mathbf{w}^\top \mathbf{x})
