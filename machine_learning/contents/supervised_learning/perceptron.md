@@ -24,24 +24,24 @@ By setting appropriate values for the weight vector $\mathbf{w}$ and the bias $b
 
 ## Loss Function
 
-To simplify the illustration, we use $\hat{y}_i = f(\mathbf{x}_i)$ to represent the prediction of the perceptron for the input $\mathbf{x}_i$. The true label of the input $\mathbf{x}_i$ is denoted as $y_i$. The perceptron makes a correct prediction if $\hat{y}_i = y_i$ and an incorrect prediction if $\hat{y}_i \neq y_i$.
+To simplify the illustration, we use $\hat{y}^{(i)} = f(\mathbf{x}^{(i)})$ to represent the prediction of the perceptron for the input $\mathbf{x}^{(i)}$. The true label of the input $\mathbf{x}^{(i)}$ is denoted as $y^{(i)}$. The perceptron makes a correct prediction if $\hat{y}^{(i)} = y^{(i)}$ and an incorrect prediction if $\hat{y}^{(i)} \neq y^{(i)}$.
 
 The loss function used in the perceptron learning algorithm is the hinge loss, which is defined as follows:
 
 $$
-\mathcal{L}(\mathbf{w}, b) = \sum_{i=1}^{n} \max(0, -y_i \hat{y}_i)
+\mathcal{L}(\mathbf{w}, b) = \sum_{i=1}^{n} \max(0, -y^{(i)} \hat{y}^{(i)})
 $$
 
-We consider the hinge loss for a single sample $(\mathbf{x}_i, y_i)$:
+We consider the hinge loss for a single sample $(\mathbf{x}^{(i)}, y^{(i)})$:
 
 $$
-\mathcal{L}_i(\mathbf{w}, b) = \max(0, -y_i \hat{y}_i)
+\mathcal{L}_i(\mathbf{w}, b) = \max(0, -y^{(i)} \hat{y}^{(i)})
 $$
 
-Both $y_i$ and $\hat{y}_i$ are either $-1$ or $1$. Therefore, 
+Both $y^{(i)}$ and $\hat{y}^{(i)}$ are either $-1$ or $1$. Therefore, 
 
-- If $y_i = f(\mathbf{x}_i)$, the prediction is correct (i.e., $y_i \hat{y}_i = 1$), and the hinge loss is zero.
-- If $y_i \neq f(\mathbf{x}_i)$, the prediction is incorrect (i.e., $y_i \hat{y}_i = -1$), and the hinge loss is $-y_i \hat{y}_i$.
+- If $y^{(i)} = f(\mathbf{x}^{(i)})$, the prediction is correct (i.e., $y^{(i)} \hat{y}^{(i)} = 1$), and the hinge loss is zero.
+- If $y^{(i)} \neq f(\mathbf{x}^{(i)})$, the prediction is incorrect (i.e., $y^{(i)} \hat{y}^{(i)} = -1$), and the hinge loss is $-y^{(i)} \hat{y}^{(i)}$.
 
 Note that when we have the "perfect" classifier, the hinge loss $\mathcal{L}(\mathbf{w}, b) = 0$.
 
@@ -56,16 +56,16 @@ b &\leftarrow b - \eta \nabla_{b} \mathcal{L}_i(\mathbf{w}, b)
 \end{align*}
 $$
 
-where $\nabla_{\mathbf{w}} \mathcal{L}_i(\mathbf{w}, b)$ and $\nabla_{b} \mathcal{L}_i(\mathbf{w}, b)$ are the gradients of the hinge loss for sample $(\mathbf{x}_i, y_i)$ with respect to the weight vector $\mathbf{w}$ and the bias $b$.
+where $\nabla_{\mathbf{w}} \mathcal{L}_i(\mathbf{w}, b)$ and $\nabla_{b} \mathcal{L}_i(\mathbf{w}, b)$ are the gradients of the hinge loss for sample $(\mathbf{x}^{(i)}, y^{(i)})$ with respect to the weight vector $\mathbf{w}$ and the bias $b$.
 
-If $-y_i \hat{y}_i \leq 0$, the gradient of the hinge loss is zero, and the weight vector $\mathbf{w}$ and the bias $b$ remain unchanged.
+If $-y^{(i)} \hat{y}^{(i)} \leq 0$, the gradient of the hinge loss is zero, and the weight vector $\mathbf{w}$ and the bias $b$ remain unchanged.
 
-If $-y_i \hat{y}_i > 0$, the gradient of the hinge loss for sample $(\mathbf{x}_i, y_i)$ with respect to the weight vector $\mathbf{w}$ and the bias $b$ is:
+If $-y^{(i)} \hat{y}^{(i)} > 0$, the gradient of the hinge loss for sample $(\mathbf{x}^{(i)}, y^{(i)})$ with respect to the weight vector $\mathbf{w}$ and the bias $b$ is:
 
 $$
 \begin{align*}
-\nabla_{\mathbf{w}} \mathcal{L}(\mathbf{w}, b) &= -y_i \mathbf{x}_i \\
-\nabla_{b} \mathcal{L}(\mathbf{w}, b) &= -y_i
+\nabla_{\mathbf{w}} \mathcal{L}(\mathbf{w}, b) &= -y^{(i)} \mathbf{x}^{(i)} \\
+\nabla_{b} \mathcal{L}(\mathbf{w}, b) &= -y^{(i)}
 \end{align*}
 $$
 
@@ -73,8 +73,8 @@ Substituting the gradients into the update rule, we get:
 
 $$
 \begin{align*}
-\mathbf{w} &\leftarrow \mathbf{w} + \eta y_i \mathbf{x}_i \\
-b &\leftarrow b + \eta y_i
+\mathbf{w} &\leftarrow \mathbf{w} + \eta y^{(i)} \mathbf{x}^{(i)} \\
+b &\leftarrow b + \eta y^{(i)}
 \end{align*}
 $$
 
@@ -82,12 +82,12 @@ There is another way to update the weight vector $\mathbf{w}$ and the bias $b$:
 
 $$
 \begin{align*}
-\mathbf{w} &\leftarrow \mathbf{w} + \eta (y_i - \hat{y}_i) \mathbf{x}_i \\
-b &\leftarrow b + \eta (y_i - \hat{y}_i)
+\mathbf{w} &\leftarrow \mathbf{w} + \eta (y^{(i)} - \hat{y}^{(i)}) \mathbf{x}^{(i)} \\
+b &\leftarrow b + \eta (y^{(i)} - \hat{y}^{(i)})
 \end{align*}
 $$
 
-This update rule is equivalent to the previous one. When $y_i = \hat{y}_i$, the update is zero, and the weight vector $\mathbf{w}$ and the bias $b$ remain unchanged. When $y_i \neq \hat{y}_i$, the update is $y_i - \hat{y}_i$, which is equivalent to $2 y_i$. By adjusting the learning rate $\eta$, we can consider these two update rules as equivalent.
+This update rule is equivalent to the previous one. When $y^{(i)} = \hat{y}^{(i)}$, the update is zero, and the weight vector $\mathbf{w}$ and the bias $b$ remain unchanged. When $y^{(i)} \neq \hat{y}^{(i)}$, the update is $y^{(i)} - \hat{y}^{(i)}$, which is equivalent to $2 y^{(i)}$. By adjusting the learning rate $\eta$, we can consider these two update rules as equivalent.
 
 ## Algorithm
 
@@ -114,7 +114,7 @@ where $\mathbf{w} \cdot \mathbf{x} = \sum_{i=0}^{n} w_i x_i$.
 Since we set $x_0 = 1$, the update rule can be simplified as follows:
 
 $$
-\mathbf{w} \leftarrow \mathbf{w} + \eta y_i \mathbf{x}_i 
+\mathbf{w} \leftarrow \mathbf{w} + \eta y^{(i)} \mathbf{x}^{(i)} 
 $$
 
 The perceptron learning algorithm is summarized in the following steps:
@@ -128,13 +128,13 @@ The perceptron learning algorithm is summarized in the following steps:
 1. Initialize $\mathbf{w} \leftarrow \mathbf{0}$ 
 2. **For** $t = 1$ to $T$
     1. **For** $i = 1$ to $n$
-        1. Compute the prediction $f(\mathbf{x}_i) = h(\mathbf{w} \cdot \mathbf{x}_i)$
-        2. **If** $y_i f(\mathbf{x}_i) \leq 0$
-            1. Update the weight vector $\mathbf{w} \leftarrow \mathbf{w} + \eta y_i \mathbf{x}_i$
+        1. Compute the prediction $f(\mathbf{x}^{(i)}) = h(\mathbf{w} \cdot \mathbf{x}^{(i)})$
+        2. **If** $y^{(i)} f(\mathbf{x}^{(i)}) \leq 0$
+            1. Update the weight vector $\mathbf{w} \leftarrow \mathbf{w} + \eta y^{(i)} \mathbf{x}^{(i)}$
 3. **Return** $\mathbf{w}$
 ```
 
-In the perceptron learning algorithm, the weight vector $\mathbf{w}$ and is updated iteratively for each training example $(\mathbf{x}_i, y_i)$ in the training data $\mathcal{D}$. The learning rate $\eta$ controls the step size of the updates. The algorithm continues for a fixed number of epochs $T$ or until convergence.
+In the perceptron learning algorithm, the weight vector $\mathbf{w}$ and is updated iteratively for each training example $(\mathbf{x}^{(i)}, y^{(i)})$ in the training data $\mathcal{D}$. The learning rate $\eta$ controls the step size of the updates. The algorithm continues for a fixed number of epochs $T$ or until convergence.
 
 ## Python Implementation
 
